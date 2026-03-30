@@ -49,6 +49,7 @@
 
     # Security
     ../../modules/nixos/security/doas.nix
+    ../../modules/nixos/security/apparmor.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -60,4 +61,6 @@
   systemd.services.NetworkManager-wait-online.enable = false;
 
   programs.firefox.enable = true;
+
+  custom.security.apparmor.enable = true;
 }

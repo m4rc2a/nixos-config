@@ -7,5 +7,6 @@
     ../../modules/nixos/packages.nix
     ../../modules/nixos/nano-replacement.nix
     ../../modules/nixos/tools
+    # AppArmor disabled - WSL uses Windows networking and has limited kernel support
   ];
 }

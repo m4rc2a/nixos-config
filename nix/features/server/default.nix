@@ -2,6 +2,7 @@
   imports = [
     # Base modules
     ../../modules/nixos/boot.nix
+    ../../modules/nixos/security/apparmor.nix
     ../../modules/nixos/locale.nix
     ../../modules/nixos/time.nix
     ../../modules/nixos/networking.nix
@@ -40,4 +41,6 @@
     default = {};
     description = "Zone -> list of service names to expose in that zone.";
   };
+
+  config.custom.security.apparmor.enable = true;
 }

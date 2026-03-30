@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }: let
   cfg = config.custom.services.nginx;
@@ -19,6 +20,37 @@ in {
   };
 
   config = {
+    # Selbstsignierte SSL-Zertifikate für interne Dienste generieren
+    system.activationScripts.generate-ssl-certs = {
+      text = ''
+        CERT_DIR="/etc/ssl/certs"
+        KEY_DIR="/etc/ssl/private"
+
+        mkdir -p "$CERT_DIR" "$KEY_DIR"
+
+        generate_cert() {
+          local domain="$1"
+          local cert_file="$CERT_DIR/$domain.crt"
+          local key_file="$KEY_DIR/$domain.key"
+
+          if [ ! -f "$cert_file" ] || [ ! -f "$key_file" ]; then
+            echo "Generating self-signed certificate for $domain..."
+            ${pkgs.openssl}/bin/openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+              -keyout "$key_file" \
+              -out "$cert_file" \
+              -subj "/CN=$domain"
+            chmod 644 "$cert_file"
+            chmod 600 "$key_file"
+            chown root:root "$cert_file" "$key_file"
+          fi
+        }
+
+        # Zertifikate für alle internen Dienste
+        generate_cert "git.roo6.lan"
+      '';
+      deps = [];
+    };
+
     services.nginx = {
       enable = true;
 
