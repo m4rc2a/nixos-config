@@ -23,56 +23,65 @@ nix flake show
 
 ## Architecture Overview
 
-This is a flake-based NixOS configuration using a host/profile pattern.
+This is a flake-based NixOS configuration using Snowfall Lib for automatic module discovery and host management.
 
 ### Directory Structure
 
-- `flake.nix` - Main flake using `mkHost` function to generate configurations
-- `hosts/<name>/` - Per-host configuration:
-  - `host.nix` - Metadata: `{ hostName, profile, system }`
-  - `base.nix` - Host-specific imports and stateVersion
-  - `hardware-configuration.nix` - Generated hardware config
-- `profiles/<name>.nix` - Profile definitions importing modules/services
-- `modules/` - Reusable NixOS modules (boot, networking, firewall, users, etc.)
-- `services/` - Service configurations with custom port options
-- `tools/` - CLI tool configurations (helix, yazi, git)
+```
+nix/
+├── systems/<arch>/<hostname>/    # Per-host configuration
+│   ├── default.nix               # Host entry point + feature import
+│   ├── hardware-configuration.nix
+│   └── disk-config.nix           # (if using disko)
+├── modules/nixos/                # Reusable modules (auto-loaded)
+│   ├── desktop/                  # Sway, pipewire, bluetooth...
+│   ├── virtualization/           # Podman, waydroid
+│   ├── gaming/                   # Steam
+│   ├── development/              # nix-ld
+│   ├── security/                 # doas
+│   ├── tools/                    # helix, yazi, git
+│   └── *.nix                     # Base modules
+└── features/                     # Feature bundles (not auto-loaded)
+    ├── server/                   # Server feature + services
+    ├── laptop/                   # Laptop feature
+    └── wsl/                      # WSL feature
+```
 
-### Host/Profile Pattern
+### Snowfall Lib Conventions
 
-Each host specifies its profile in `host.nix`. The flake constructs the configuration by:
-1. Reading host metadata (`host.nix`)
-2. Loading `base.nix` (hardware config + host-specific settings)
-3. Loading the profile (`profiles/<profile>.nix`)
+- **Systems**: Hostnames are derived from directory names under `nix/systems/<arch>/`
+- **Modules**: All modules in `nix/modules/nixos/` are automatically applied to ALL systems
+- **Features**: Feature bundles in `nix/features/` must be explicitly imported per-host
+- **Namespace**: Custom options use the `custom.` prefix
 
 ### Current Hosts
 
-- `roo6` - aarch64-linux server (profile: server)
-- `wsl` - x86_64-linux WSL instance (profile: wsl)
+- `roo6` - aarch64-linux server (feature: server)
+- `wsl` - x86_64-linux WSL instance (feature: wsl)
+- `marc-laptop` - x86_64-linux laptop with Heads BIOS (feature: laptop)
 
-### Zone-Based Firewall System
+### Adding a New Host
 
-The server profile uses a zone-based firewall:
+1. Create `nix/systems/<arch>/<hostname>/default.nix`
+2. Add hardware config
+3. Import the desired feature
 
-1. **Port Definitions** (`modules/service-ports.nix`): Services register ports via `custom.services.ports.<service>.tcp/udp`
+### Zone-Based Firewall System (Server)
 
-2. **Zone Mapping** (`profiles/server/exposed-*.nix`): `exposedByZone.<zone>` lists which services are exposed per zone
+1. **Port Definitions** (`modules/nixos/service-ports.nix`): Services register ports via `custom.services.ports.<service>.tcp/udp`
 
-3. **Interface Mapping** (`hosts/<name>/network-interfaces.nix`): `custom.firewall.zoneInterfaces` maps zones to interfaces
+2. **Zone Mapping** (`features/server/exposed-*.nix`): `exposedByZone.<zone>` lists which services are exposed per zone
 
-4. **Firewall Module** (`modules/firewall.nix`): Aggregates all mappings to configure `networking.firewall.interfaces`
+3. **Interface Mapping** (`systems/<arch>/<hostname>/network-interfaces.nix`): `custom.firewall.zoneInterfaces` maps zones to interfaces
 
-When adding a new service:
-1. Create the service module with `custom.services.<name>.port` options
-2. Register ports: `custom.services.ports.<name>.tcp = [cfg.port]`
+4. **Firewall Module** (`modules/nixos/firewall.nix`): Aggregates all mappings to configure `networking.firewall.interfaces`
+
+### Adding a New Service
+
+1. Create service module in `features/server/services/<name>.nix`
+2. Register ports: `custom.services.ports.<name>.tcp = [port]`
 3. Add to zone exposure lists in `exposed-lan.nix` / `exposed-wan.nix`
 
-### Editor Setup
+### Heads BIOS (marc-laptop)
 
-Helix is configured system-wide with:
-- Formatter: alejandra (Nix)
-- LSP: nil (Nix)
-- Config at `/etc/helix/config.toml`
-
-### Legacy Configuration
-
-`nixos-laptop-heads/` is a separate laptop configuration using home-manager and disko, not integrated with the main flake.
+The laptop uses Heads BIOS which boots via kexec without a traditional bootloader. The kernel, initrd, and cmdline are exported to `/boot/kexec/` via activation scripts.

@@ -1,7 +1,6 @@
 {
   pkgs,
-  flexoki-dark-yazi,
-  flexoki-light-yazi,
+  inputs,
   ...
 }: {
   programs.yazi = {
@@ -9,8 +8,8 @@
     package = pkgs.yazi;
 
     flavors = {
-      flexoki-dark = flexoki-dark-yazi;
-      flexoki-light = flexoki-light-yazi;
+      flexoki-dark = inputs.flexoki-dark-yazi;
+      flexoki-light = inputs.flexoki-light-yazi;
     };
 
     settings = {

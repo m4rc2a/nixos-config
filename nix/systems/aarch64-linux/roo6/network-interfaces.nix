@@ -1,7 +1,7 @@
 {...}: {
   imports = [
-    ../../modules/firewall.nix
-    ../../modules/service-ports.nix
+    ../../../modules/nixos/firewall.nix
+    ../../../modules/nixos/service-ports.nix
   ];
   systemd.network.links = {
     "10-wan0" = {

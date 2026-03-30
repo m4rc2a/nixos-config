@@ -4,9 +4,9 @@
   ...
 }: {
   imports = [
-    ../tools/helix.nix
-    ../tools/yazi.nix
-    ../tools/git.nix
+    ./helix.nix
+    ./yazi.nix
+    ./git.nix
   ];
 
   environment.systemPackages = with pkgs; [
