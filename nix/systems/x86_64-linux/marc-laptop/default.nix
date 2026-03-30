@@ -14,5 +14,6 @@
     ../../../features/laptop
   ];
 
+  networking.hostName = "marc-laptop";
   system.stateVersion = "25.11";
 }

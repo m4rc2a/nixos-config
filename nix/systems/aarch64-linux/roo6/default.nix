@@ -12,6 +12,7 @@
     ../../../features/server
   ];
 
+  networking.hostName = "roo6";
   hardware.enableRedistributableFirmware = true;
   system.stateVersion = "25.05";
 }

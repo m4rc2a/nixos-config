@@ -20,6 +20,11 @@
       url = "github:gosxrgxx/flexoki-light.yazi";
       flake = false;
     };
+
+    colmena = {
+      url = "github:zhaofengli/colmena";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs: let
@@ -33,5 +38,35 @@
       };
     };
   in
-    lib;
+    lib // {
+      colmenaHive = inputs.colmena.lib.makeHive {
+        meta = {
+          nixpkgs = import inputs.nixpkgs {
+            system = "x86_64-linux";
+            overlays = [];
+          };
+          nodeNixpkgs = {
+            roo6 = import inputs.nixpkgs {
+              system = "aarch64-linux";
+              overlays = [];
+            };
+          };
+          specialArgs = { inherit inputs; };
+        };
+
+        roo6 = {
+          imports = [
+            ./nix/systems/aarch64-linux/roo6
+            ./nix/systems/aarch64-linux/roo6/colmena.nix
+          ];
+        };
+
+        marc-laptop = {
+          imports = [
+            ./nix/systems/x86_64-linux/marc-laptop
+            ./nix/systems/x86_64-linux/marc-laptop/colmena.nix
+          ];
+        };
+      };
+    };
 }

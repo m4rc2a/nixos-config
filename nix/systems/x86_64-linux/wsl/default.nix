@@ -13,6 +13,7 @@
     ../../../features/wsl
   ];
 
+  networking.hostName = "wsl";
   wsl.enable = true;
   system.stateVersion = "25.05";
 }
