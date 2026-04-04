@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  hostName,
   ...
 }: let
   cfg = config.custom.services.homeassistant;
@@ -26,7 +25,7 @@ in {
       config = {
         http.server_port = cfg.port;
         homeassistant = {
-          name = hostName;
+          name = config.networking.hostName;
           time_zone = "Europe/Berlin";
           temperature_unit = "C";
           unit_system = "metric";

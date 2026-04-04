@@ -17,7 +17,6 @@
     winetricks
     distrobox
     vim
-    home-manager
     discord
   ];
 
@@ -62,5 +61,6 @@
 
   programs.firefox.enable = true;
 
+  custom.boot.sky1Kernel.enable = true;
   custom.security.apparmor.enable = true;
 }
