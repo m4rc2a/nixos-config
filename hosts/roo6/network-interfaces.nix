@@ -1,8 +1,4 @@
 {...}: {
-  imports = [
-    ../../../modules/nixos/firewall.nix
-    ../../../modules/nixos/service-ports.nix
-  ];
   systemd.network.links = {
     "10-wan0" = {
       matchConfig.MACAddress = "00:48:54:20:41:3d";
