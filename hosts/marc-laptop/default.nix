@@ -8,6 +8,7 @@
   imports = [
     inputs.nixos-shared.nixosProfiles.laptop
     inputs.disko.nixosModules.default
+    inputs.home-manager.nixosModules.home-manager
 
     ./hardware-configuration.nix
     ./disk-config.nix
@@ -36,22 +37,16 @@
     discord
   ];
 
-  # TODO: Re-enable when home-manager submodule is fixed
-  # home-manager = {
-  #   useGlobalPkgs = true;
-  #   useUserPackages = true;
-  #   extraSpecialArgs = {
-  #     inherit inputs;
-  #     homeManagerInputs = {
-  #       home-manager = inputs.home-manager;
-  #     };
-  #   };
-  #   users.marc = { pkgs, ... }: {
-  #     imports = [
-  #       inputs.home-manager.homeConfigurations."work-laptop-hp".homeManagerModules.default
-  #     ];
-  #   };
-  # };
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    users.marc = {
+      imports = [
+        inputs.hm-chammy.homeManagerModules.core
+        inputs.hm-chammy.homeManagerModules.desktop
+      ];
+    };
+  };
 
   networking.hostName = "marc-laptop";
   system.stateVersion = "25.11";

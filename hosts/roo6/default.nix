@@ -8,6 +8,7 @@
   imports = [
     inputs.nixos-shared.nixosProfiles.server
     inputs.disko.nixosModules.default
+    inputs.home-manager.nixosModules.home-manager
 
     ./disk-config.nix
     ./hardware-configuration.nix
@@ -45,22 +46,13 @@
   custom.services.ssh-reverse-tunnel.remoteHost = "shelog";
   custom.services.ssh-reverse-tunnel.tunnelPort = 2443;
 
-  # TODO: Re-enable when home-manager submodule is fixed
-  # home-manager = {
-  #   useGlobalPkgs = true;
-  #   useUserPackages = true;
-  #   extraSpecialArgs = {
-  #     inherit inputs;
-  #     homeManagerInputs = {
-  #       home-manager = inputs.home-manager;
-  #     };
-  #   };
-  #   users.root = { pkgs, ... }: {
-  #     imports = [
-  #       inputs.home-manager.homeConfigurations."default".homeManagerModules.default
-  #     ];
-  #   };
-  # };
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    users.root = {
+      imports = [inputs.hm-chammy.homeManagerModules.core];
+    };
+  };
 
   networking.hostName = "roo6";
   hardware.enableRedistributableFirmware = true;

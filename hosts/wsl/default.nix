@@ -8,6 +8,7 @@
   imports = [
     inputs.nixos-shared.nixosProfiles.wsl
     inputs.nixos-wsl.nixosModules.default
+    inputs.home-manager.nixosModules.home-manager
 
     ./hardware-configuration.nix
   ];
@@ -21,22 +22,16 @@
     flexoki-light = inputs.flexoki-light-yazi;
   };
 
-  # TODO: Re-enable when home-manager submodule is fixed
-  # home-manager = {
-  #   useGlobalPkgs = true;
-  #   useUserPackages = true;
-  #   extraSpecialArgs = {
-  #     inherit inputs;
-  #     homeManagerInputs = {
-  #       home-manager = inputs.home-manager;
-  #     };
-  #   };
-  #   users.wsl = { pkgs, ... }: {
-  #     imports = [
-  #       inputs.home-manager.homeConfigurations."default".homeManagerModules.default
-  #     ];
-  #   };
-  # };
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    users.wsl = {
+      imports = [
+        inputs.hm-chammy.homeManagerModules.core
+        inputs.hm-chammy.homeManagerModules.work
+      ];
+    };
+  };
 
   networking.hostName = "wsl";
   wsl.enable = true;
