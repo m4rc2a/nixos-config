@@ -14,8 +14,6 @@
     ./disk-config.nix
   ];
 
-  # Main user
-  custom.users.main.name = "marc";
   custom.users.main.groups = ["wheel" "video" "networkmanager" "dialout" "adbusers" "docker" "plugdev"];
 
   # Yazi flavors

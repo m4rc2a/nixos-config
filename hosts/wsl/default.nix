@@ -13,8 +13,15 @@
     ./hardware-configuration.nix
   ];
 
-  # No main user — nixos-wsl creates its own "wsl" user
-  # No doas — WSL has limited kernel support
+  # No system user from custom.users.main — nixos-wsl manages the "wsl" user
+  custom.users.main.create = false;
+
+  # WSL user (required by nixos-wsl)
+  users.users.wsl = {
+    isNormalUser = true;
+    group = "wsl";
+  };
+  users.groups.wsl = {};
 
   # Yazi flavors
   custom.tools.yazi.flavors = {

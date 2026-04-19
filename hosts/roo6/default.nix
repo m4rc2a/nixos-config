@@ -15,8 +15,8 @@
     ./network-interfaces.nix
   ];
 
-  # No main user — server runs as root
-  # custom.users.main.name remains null (no user created)
+  # No system user — server runs as root
+  custom.users.main.create = false;
 
   # Disable AppArmor for now
   custom.security.apparmor.enable = false;
