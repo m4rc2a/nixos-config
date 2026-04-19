@@ -20,11 +20,11 @@ nix flake update
 # View available configurations
 nix flake show
 
-# Deploy to remote host via Colmena
-nix run .#colmena apply
+# Install a host via nixos-anywhere (remote provisioning)
+nix run github:numtide/nixos-anywhere -- --flake .#<hostname> root@<host>
 
-# Deploy a specific host
-nix run .#colmena apply --on <hostname>
+# Deploy config changes to a running host
+nixos-rebuild switch --flake .#<hostname> --target-host root@<host>
 ```
 
 ## Architecture Overview
@@ -45,17 +45,15 @@ hosts/
 ├── roo6/
 │   ├── default.nix              # Server profile + hardware + overrides
 │   ├── hardware-configuration.nix
-│   ├── network-interfaces.nix   # MAC addresses, zone interfaces
-│   ├── storage.nix              # Btrfs mount (machine-specific)
-│   └── colmena.nix
+│   ├── disk-config.nix          # disko partition layout
+│   └── network-interfaces.nix   # MAC addresses, zone interfaces
 ├── marc-laptop/
 │   ├── default.nix              # Laptop profile + hardware + overrides
 │   ├── hardware-configuration.nix
-│   ├── disk-config.nix
-│   └── colmena.nix
+│   └── disk-config.nix
 └── wsl/
     ├── default.nix              # WSL profile + hardware + overrides
-    ├── hardware-configuration.nix
+    └── hardware-configuration.nix
 ```
 
 ### Profiles (from nixos-shared)
@@ -87,9 +85,9 @@ All custom options use the `custom.` prefix:
 
 | Host | Arch | Profile | User | Deployment |
 |------|------|---------|------|------------|
-| `roo6` | aarch64-linux | server | root | Colmena (`roo6.lan`) |
+| `roo6` | aarch64-linux | server | root | nixos-anywhere (`roo6.lan`) |
 | `wsl` | x86_64-linux | wsl | wsl | Local only |
-| `marc-laptop` | x86_64-linux | laptop | marc | Colmena (`marc-laptop.lan`) |
+| `marc-laptop` | x86_64-linux | laptop | marc | nixos-anywhere (`marc-laptop.lan`) |
 
 ### Home Manager Integration
 
@@ -109,9 +107,10 @@ A declarative firewall that maps services → zones → interfaces:
 
 1. Create `hosts/<hostname>/default.nix`
 2. Add `hardware-configuration.nix` (generate with `nixos-generate-config`)
-3. Import the desired profile: `inputs.nixos-shared.nixosProfiles.<profile>`
-4. Set machine-specific options (`custom.users.main.name`, etc.)
-5. For Colmena: add `colmena.nix` with `deployment` options and register in `flake.nix`
+3. Add `disk-config.nix` (disko partition layout for nixos-anywhere)
+4. Import the desired profile: `inputs.nixos-shared.nixosProfiles.<profile>`
+5. Set machine-specific options (`custom.users.main.name`, etc.)
+6. Register in `flake.nix` under `nixosConfigurations`
 
 ### Adding a New Service (in nixos-shared)
 
@@ -125,6 +124,16 @@ A declarative firewall that maps services → zones → interfaces:
 
 The laptop uses Heads BIOS which boots via kexec without a traditional bootloader. The kernel, initrd, and cmdline are exported to `/boot/kexec/` via activation scripts.
 
-### Colmena Deployment
+### nixos-anywhere Deployment
 
-Remote hosts (`roo6`, `marc-laptop`) can be deployed via Colmena. The hive is defined in `flake.nix` as `colmenaHive`. Each host has a `colmena.nix` with deployment target settings. The `marc-laptop` has `allowLocalDeployment = true`.
+Remote hosts (`roo6`, `marc-laptop`) can be provisioned from scratch using nixos-anywhere. Each host has a `disk-config.nix` defining its disk layout via disko. To install:
+
+```bash
+nix run github:numtide/nixos-anywhere -- --flake .#<hostname> root@<host>
+```
+
+Config changes to already-running hosts can be deployed via:
+
+```bash
+nixos-rebuild switch --flake .#<hostname> --target-host root@<host>
+```
