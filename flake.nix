@@ -8,11 +8,7 @@
 
     nixos-wsl.url = "github:nix-community/NixOS-WSL/release-25.11";
     disko.url = "github:nix-community/disko";
-
-    colmena = {
-      url = "github:zhaofengli/colmena";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nixos-anywhere.url = "github:numtide/nixos-anywhere";
 
     # TODO: Re-enable when home-manager submodule is fixed
     # home-manager = {
@@ -53,36 +49,6 @@
         system = "x86_64-linux";
         specialArgs = {inherit inputs;};
         modules = [./hosts/marc-laptop];
-      };
-    };
-
-    colmenaHive = inputs.colmena.lib.makeHive {
-      meta = {
-        nixpkgs = import inputs.nixpkgs {
-          system = "x86_64-linux";
-          overlays = [];
-        };
-        nodeNixpkgs = {
-          roo6 = import inputs.nixpkgs {
-            system = "aarch64-linux";
-            overlays = [];
-          };
-        };
-        specialArgs = {inherit inputs;};
-      };
-
-      roo6 = {
-        imports = [
-          ./hosts/roo6
-          ./hosts/roo6/colmena.nix
-        ];
-      };
-
-      marc-laptop = {
-        imports = [
-          ./hosts/marc-laptop
-          ./hosts/marc-laptop/colmena.nix
-        ];
       };
     };
   };
