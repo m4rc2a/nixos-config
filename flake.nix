@@ -10,11 +10,15 @@
     disko.url = "github:nix-community/disko";
     nixos-anywhere.url = "github:numtide/nixos-anywhere";
 
-    # TODO: Re-enable when home-manager submodule is fixed
-    # home-manager = {
-    #   url = "path:./home-manager";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
+    home-manager = {
+      url = "github:nix-community/home-manager/release-25.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    hm-chammy = {
+      url = "git+https://codeberg.org/m4rc2a/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     flexoki-dark-yazi = {
       url = "github:gosxrgxx/flexoki-dark.yazi";
