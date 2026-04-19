@@ -7,14 +7,29 @@
 }: {
   imports = [
     inputs.nixos-shared.nixosProfiles.server
+    inputs.disko.nixosModules.default
 
+    ./disk-config.nix
     ./hardware-configuration.nix
     ./network-interfaces.nix
-    ./storage.nix
   ];
 
   # No main user — server runs as root
   # custom.users.main.name remains null (no user created)
+
+  # Disable AppArmor for now
+  custom.security.apparmor.enable = false;
+
+  # Override nixos-shared default (systemd-boot) — aarch64 server uses grub
+  boot.loader = {
+    systemd-boot.enable = false;
+    grub = {
+      enable = true;
+      efiSupport = true;
+      device = "nodev";
+    };
+    efi.canTouchEfiVariables = true;
+  };
 
   # Firewall zones
   custom.firewall.exposedByZone = {

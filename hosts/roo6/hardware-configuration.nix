@@ -17,18 +17,7 @@
   boot.kernelModules = [];
   boot.extraModulePackages = [];
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/317d8cde-860b-4c58-bf9f-06c2d73667ff";
-    fsType = "btrfs";
-  };
-
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/2A21-B1AF";
-    fsType = "vfat";
-    options = ["fmask=0022" "dmask=0022"];
-  };
-
-  swapDevices = [];
+  # fileSystems and swapDevices are managed by disko (disk-config.nix)
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
