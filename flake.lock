@@ -400,19 +400,19 @@
         "type": "github"
       }
     },
-    "nixos-shared": {
+    "nixos-profiles": {
       "locked": {
-        "lastModified": 1776629644,
-        "narHash": "sha256-YqLiXQW39tZGCwp0huXn1QNi2xiIghPr8aNGJ71asR0=",
+        "lastModified": 1776723645,
+        "narHash": "sha256-jBQxP0pfjEGcTYU5BOy2gJgB1v23Wqj1BZqqNy8Dxx0=",
         "ref": "refs/heads/main",
-        "rev": "c7564a50730e4e8b44d795bf8abc02d8f21f9100",
-        "revCount": 4,
+        "rev": "402c8402e40f534ae0ce2dc6e147daf5c5f73ca3",
+        "revCount": 12,
         "type": "git",
-        "url": "file:///home/nixos/src/nixos-shared"
+        "url": "file:///home/nixos/src/nixos-profiles"
       },
       "original": {
         "type": "git",
-        "url": "file:///home/nixos/src/nixos-shared"
+        "url": "file:///home/nixos/src/nixos-profiles"
       }
     },
     "nixos-stable": {
@@ -550,7 +550,7 @@
         "hm-chammy": "hm-chammy",
         "home-manager": "home-manager_2",
         "nixos-anywhere": "nixos-anywhere",
-        "nixos-shared": "nixos-shared",
+        "nixos-profiles": "nixos-profiles",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs_4"
       }

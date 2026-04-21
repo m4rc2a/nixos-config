@@ -31,7 +31,7 @@ nixos-rebuild switch --flake .#<hostname> --target-host root@<host>
 
 This is a flake-based NixOS configuration split into two repos:
 
-1. **`nixos-shared`** (Codeberg) — Shared modules, services, and profiles. Consumed as a flake input. Has zero external inputs itself.
+1. **`nixos-profiles`** (Codeberg) — Shared modules, services, and profiles. Consumed as a flake input. Has zero external inputs itself.
 2. **This repo** — Host-specific configs only: hardware, machine overrides, and profile assignment.
 
 ### No Snowfall Lib
@@ -56,7 +56,7 @@ hosts/
     └── hardware-configuration.nix
 ```
 
-### Profiles (from nixos-shared)
+### Profiles (from nixos-profiles)
 
 Profiles are the primary mechanism for host differentiation. Each imports a specific set of shared modules:
 
@@ -108,11 +108,11 @@ A declarative firewall that maps services → zones → interfaces:
 1. Create `hosts/<hostname>/default.nix`
 2. Add `hardware-configuration.nix` (generate with `nixos-generate-config`)
 3. Add `disk-config.nix` (disko partition layout for nixos-anywhere)
-4. Import the desired profile: `inputs.nixos-shared.nixosProfiles.<profile>`
+4. Import the desired profile: `inputs.nixos-profiles.nixosProfiles.<profile>`
 5. Set machine-specific options (`custom.users.main.name`, etc.)
 6. Register in `flake.nix` under `nixosConfigurations`
 
-### Adding a New Service (in nixos-shared)
+### Adding a New Service (in nixos-profiles)
 
 1. Create module in `modules/services/<name>.nix`
 2. Define port options under `custom.services.<name>.port(s)`

@@ -6,7 +6,7 @@
   ...
 }: {
   imports = [
-    inputs.nixos-shared.nixosProfiles.server
+    inputs.nixos-profiles.nixosProfiles.server
     inputs.disko.nixosModules.default
     inputs.home-manager.nixosModules.home-manager
 
@@ -21,7 +21,7 @@
   # Disable AppArmor for now
   custom.security.apparmor.enable = false;
 
-  # Override nixos-shared default (systemd-boot) — aarch64 server uses grub
+  # Override nixos-profiles default (systemd-boot) — aarch64 server uses grub
   boot.loader = {
     systemd-boot.enable = false;
     grub = {

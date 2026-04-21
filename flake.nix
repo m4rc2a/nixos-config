@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
 
-    nixos-shared.url = "git+file:///home/nixos/src/nixos-shared";
+    nixos-profiles.url = "git+file:///home/nixos/src/nixos-profiles";
 
     nixos-wsl.url = "github:nix-community/NixOS-WSL/release-25.11";
     disko.url = "github:nix-community/disko";

@@ -6,7 +6,7 @@
   ...
 }: {
   imports = [
-    inputs.nixos-shared.nixosProfiles.wsl
+    inputs.nixos-profiles.nixosProfiles.wsl
     inputs.nixos-wsl.nixosModules.default
     inputs.home-manager.nixosModules.home-manager
 

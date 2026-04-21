@@ -6,7 +6,7 @@
   ...
 }: {
   imports = [
-    inputs.nixos-shared.nixosProfiles.laptop
+    inputs.nixos-profiles.nixosProfiles.laptop
     inputs.disko.nixosModules.default
     inputs.home-manager.nixosModules.home-manager
 
