@@ -46,13 +46,9 @@
   custom.services.ssh-reverse-tunnel.remoteHost = "shelog";
   custom.services.ssh-reverse-tunnel.tunnelPort = 2443;
 
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    users.root = {
-      imports = [inputs.hm-chammy.homeManagerModules.core];
-    };
-  };
+  custom.home-manager.users.root = [
+    inputs.hm-chammy.homeManagerModules.core
+  ];
 
   networking.hostName = "roo6";
   hardware.enableRedistributableFirmware = true;

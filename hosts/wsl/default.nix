@@ -29,16 +29,10 @@
     flexoki-light = inputs.flexoki-light-yazi;
   };
 
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    users.wsl = {
-      imports = [
-        inputs.hm-chammy.homeManagerModules.core
-        inputs.hm-chammy.homeManagerModules.work
-      ];
-    };
-  };
+  custom.home-manager.users.wsl = [
+    inputs.hm-chammy.homeManagerModules.core
+    inputs.hm-chammy.homeManagerModules.work
+  ];
 
   networking.hostName = "wsl";
   wsl.enable = true;

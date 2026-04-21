@@ -35,16 +35,10 @@
     discord
   ];
 
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    users.marc = {
-      imports = [
-        inputs.hm-chammy.homeManagerModules.core
-        inputs.hm-chammy.homeManagerModules.desktop
-      ];
-    };
-  };
+  custom.home-manager.users.marc = [
+    inputs.hm-chammy.homeManagerModules.core
+    inputs.hm-chammy.homeManagerModules.desktop
+  ];
 
   networking.hostName = "marc-laptop";
   system.stateVersion = "25.11";
