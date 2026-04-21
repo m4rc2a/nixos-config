@@ -19,7 +19,7 @@
   custom.users.main.create = false;
 
   # Disable AppArmor for now
-  custom.security.apparmor.enable = false;
+  custom.security.apparmor.enable = lib.mkForce false;
 
   # Override nixos-profiles default (systemd-boot) — aarch64 server uses grub
   boot.loader = {

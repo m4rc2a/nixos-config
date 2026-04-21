@@ -32,7 +32,9 @@ nixos-rebuild switch --flake .#<hostname> --target-host root@<host>
 This is a flake-based NixOS configuration split into two repos:
 
 1. **`nixos-profiles`** (Codeberg) — Shared modules, services, and profiles. Consumed as a flake input. Has zero external inputs itself.
-2. **This repo** — Host-specific configs only: hardware, machine overrides, and profile assignment.
+2. **This repo** — Private host-specific configs only: hardware, machine overrides, and profile assignment.
+
+Work-related hosts (wsl, rpi5-webserver) live in a separate repo on Arbeitgeber GitLab (`git@code.arbeitgeber.com:marc.zander/nixos-config.git`), using Arbeitgeber GitLab's `nixos-profiles`.
 
 ### No Snowfall Lib
 
@@ -47,13 +49,10 @@ hosts/
 │   ├── hardware-configuration.nix
 │   ├── disk-config.nix          # disko partition layout
 │   └── network-interfaces.nix   # MAC addresses, zone interfaces
-├── marc-laptop/
-│   ├── default.nix              # Laptop profile + hardware + overrides
-│   ├── hardware-configuration.nix
-│   └── disk-config.nix
-└── wsl/
-    ├── default.nix              # WSL profile + hardware + overrides
-    └── hardware-configuration.nix
+└── marc-laptop/
+    ├── default.nix              # Laptop profile + hardware + overrides
+    ├── hardware-configuration.nix
+    └── disk-config.nix
 ```
 
 ### Profiles (from nixos-profiles)
@@ -62,7 +61,6 @@ Profiles are the primary mechanism for host differentiation. Each imports a spec
 
 - **Server** — Base + security (doas + apparmor) + all services + firewall
 - **Laptop** — Base + desktop + virtualization + gaming + development + security
-- **WSL** — Minimal base only (no security modules)
 
 ### Custom Options
 
@@ -86,7 +84,6 @@ All custom options use the `custom.` prefix:
 | Host | Arch | Profile | User | Deployment |
 |------|------|---------|------|------------|
 | `roo6` | aarch64-linux | server | root | nixos-anywhere (`roo6.lan`) |
-| `wsl` | x86_64-linux | wsl | wsl | Local only |
 | `marc-laptop` | x86_64-linux | laptop | marc | nixos-anywhere (`marc-laptop.lan`) |
 
 ### Home Manager Integration
