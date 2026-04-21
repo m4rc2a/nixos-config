@@ -408,11 +408,11 @@
         "rev": "402c8402e40f534ae0ce2dc6e147daf5c5f73ca3",
         "revCount": 12,
         "type": "git",
-        "url": "file:///home/nixos/src/nixos-profiles"
+        "url": "https://codeberg.org/m4rc2a/nixos-profiles"
       },
       "original": {
         "type": "git",
-        "url": "file:///home/nixos/src/nixos-profiles"
+        "url": "https://codeberg.org/m4rc2a/nixos-profiles"
       }
     },
     "nixos-stable": {
