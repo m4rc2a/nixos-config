@@ -11,7 +11,13 @@
     mkdir -p /boot/kexec
     cp ${config.system.build.kernel}/bzImage /boot/kexec/vmlinuz
     cp ${config.system.build.initialRamdisk}/initrd /boot/kexec/initrd
-    echo "${toString config.boot.kernelParams}" > /boot/kexec/cmdline
+
+    params="${toString config.boot.kernelParams}"
+    echo "$params" > /boot/kexec/cmdline
+
+    menu_entry="NixOS|elf|kernel /kexec/vmlinuz|initrd /kexec/initrd|append $params"
+    echo "$menu_entry" > /boot/kexec_menu.txt
+    echo "$menu_entry" > /boot/kexec_default.1.txt
   '';
 
   boot = {

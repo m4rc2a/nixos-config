@@ -173,7 +173,7 @@ Damit Heads automatisch bootet ohne jedes Mal manuell auszuwählen:
 3. Mit `d` als Default markieren
 4. Bestätigen
 
-Heads erstellt daraufhin `kexec_menu.txt` und `kexec_default.1.txt` in `/boot/`.
+Heads lädt daraufhin den Default-Eintrag aus `/boot/kexec_menu.txt` und `/boot/kexec_default.1.txt`. Diese Dateien werden automatisch vom NixOS Activation-Script erzeugt.
 
 ### 5. TPM Disk Unlock Key (optional, empfohlen)
 
@@ -206,6 +206,8 @@ Nach dem Rebuild:
 3. Im Heads-Menü: `Options -> Update checksums and sign all files in /boot` (GPG User PIN eingeben)
 4. Default Boot Option neu setzen: `Options -> Boot Options -> Show boot options` -> `d`
 5. Neustarten — jetzt bootet Heads normal durch
+
+> **Hinweis:** `kexec_menu.txt` und `kexec_default.1.txt` werden vom NixOS Activation-Script automatisch aktualisiert. Nur die Signatur muss nach jedem Rebuild erneuert werden.
 
 > **Hinweis:** Nur den eigenen USB Security Dongle einstecken wenn signiert wird. Andere Dongel entfernen um Konflikte zu vermeiden.
 
