@@ -10,6 +10,8 @@ nixos-rebuild switch --flake .#<hostname> --target-host root@<host>
 nixos-rebuild build --flake .#<hostname>
 ```
 
+> **Hinweis:** `--target-host` braucht Root-SSH. Auf Hosts mit `PermitRootLogin = "no"` (z.B. roo6) muss auf dem Zielsystem selbst gebaut werden — siehe [Remote Deploy](remote-deploy.md).
+
 ## Lokal auf dem Zielsystem
 
 ```bash

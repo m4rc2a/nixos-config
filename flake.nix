@@ -7,7 +7,6 @@
     nixos-profiles.url = "git+https://codeberg.org/m4rc2a/nixos-profiles";
 
     disko.url = "github:nix-community/disko";
-    nixos-anywhere.url = "github:numtide/nixos-anywhere";
 
     home-manager = {
       url = "github:nix-community/home-manager/release-25.11";

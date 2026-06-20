@@ -1,6 +1,6 @@
 # Neuinstallation (Bare Metal)
 
-Neuinstallation auf nacktem Metall mit `nixos-anywhere`. Der Ablauf ist für alle Architekturen gleich — architekturspezifische Besonderheiten stehen in [Heads BIOS](heads-bios.md) und [Raspberry Pi / ARM](raspberry-pi-arm.md).
+Neuinstallation auf nacktem Metall mit `nixos-anywhere`. Der Ablauf ist für alle Architekturen gleich — architekturspezifische Besonderheiten stehen in [Heads BIOS](heads-bios.md) und [aarch64 / ARM](aarch64.md).
 
 ## 1. NixOS-Live-USB erstellen
 

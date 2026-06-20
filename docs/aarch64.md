@@ -1,6 +1,6 @@
-# Raspberry Pi / ARM
+# aarch64 / ARM
 
-Aarch64-spezifische Besonderheiten für roo6 und andere ARM-Hosts.
+Aarch64-spezifische Besonderheiten für alle ARM-Hosts (roo6, rpi5-webserver). RPi-spezifische Abschnitte sind entsprechend markiert.
 
 ## Bootloader
 
@@ -56,5 +56,6 @@ Der RPi5 bootet mit U-Boot + UEFI. Dafür muss das `raspberrypi-firmware`-Paket 
 
 ## Weiterführendes
 
-- Bootloader-Override in der Host-Config: siehe `hosts/roo6/default.nix`
+- Bootloader-Override (roo6): siehe `hosts/roo6/default.nix`
+- Bootloader-Override (rpi5-webserver): siehe Arbeitgeber-GitLab-Repo
 - Generischer Install-Ablauf: siehe [Neuinstallation](fresh-install.md)

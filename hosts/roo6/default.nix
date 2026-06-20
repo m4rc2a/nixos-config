@@ -15,8 +15,12 @@
     ./network-interfaces.nix
   ];
 
-  # No system user — server runs as root
-  custom.users.main.create = false;
+  custom.users.main.create = true;
+  custom.users.main.groups = ["wheel"];
+
+  users.users.marc.openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKHb/tElkqPSkzQnH2NA+B8M0VaeXyng0x6hfTGtLN7X"
+  ];
 
   # Disable AppArmor for now
   custom.security.apparmor.enable = lib.mkForce false;
@@ -45,6 +49,10 @@
   custom.services.ssh-reverse-tunnel.enable = true;
   custom.services.ssh-reverse-tunnel.remoteHost = "shelog";
   custom.services.ssh-reverse-tunnel.tunnelPort = 2443;
+
+  custom.home-manager.users.marc = [
+    inputs.hm-chammy.homeManagerModules.core
+  ];
 
   custom.home-manager.users.root = [
     inputs.hm-chammy.homeManagerModules.core

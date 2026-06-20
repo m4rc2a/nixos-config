@@ -81,14 +81,14 @@ All custom options use the `custom.` prefix:
 
 ### Current Hosts
 
-| Host | Arch | Profile | User | Deployment |
-|------|------|---------|------|------------|
-| `roo6` | aarch64-linux | server | root | nixos-anywhere (`roo6.lan`) |
-| `marc-laptop` | x86_64-linux | laptop | marc | nixos-anywhere (`marc-laptop.lan`) |
+| Host | Arch | Profile | User | Hardware | Deployment |
+|------|------|---------|------|----------|------------|
+| `roo6` | aarch64-linux | server | root | Radxa Orion O6 | nixos-anywhere (`roo6.lan`) |
+| `marc-laptop` | x86_64-linux | laptop | marc | ThinkPad T440p | nixos-anywhere (`marc-laptop.lan`) |
 
 ### Home Manager Integration
 
-Home-manager configuration lives in a **git submodule** at `./home-manager`. The submodule must be initialized before building (`git submodule update --init`).
+Home-manager modules come from the `hm-chammy` flake input, not a local submodule (the `./home-manager` submodule was removed in a recent refactor).
 
 ### Zone-Based Firewall System (Server)
 

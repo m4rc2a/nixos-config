@@ -17,8 +17,8 @@ custom.firewall = {
     lan = [ "lan0" ];
   };
   exposedByZone = {
-    lan = [ "nginx" "openssh" "gitlab" "invidious" "radarr" "jellyfin" ];
-    wan = [ "nginx" "jellyfin" ];
+    lan = [ "nginx" "matter-server" "homeassistant" "openssh" "gitea" "invidious" "radarr" "jellyfin" ];
+    wan = [ "nginx" "matter-server" "homeassistant" "jellyfin" ];
   };
 };
 ```
@@ -27,8 +27,8 @@ Ergebnis:
 
 | Interface | Zone | Freigegebene TCP-Ports |
 |-----------|------|----------------------|
-| `lan0` | lan | 80, 443 (nginx), 22 (openssh), 8080 (gitlab), 3000 (invidious), 7878 (radarr), 8096, 8920 (jellyfin) |
-| `wan0` | wan | 80, 443 (nginx), 8096, 8920 (jellyfin) |
+| `lan0` | lan | 80, 443 (nginx), 5540 (matter-server), 8123 (homeassistant), 22 (openssh), 3000 (gitea), 3000 (invidious), 7878 (radarr), 8096, 8920 (jellyfin) |
+| `wan0` | wan | 80, 443 (nginx), 5540 (matter-server), 8123 (homeassistant), 8096, 8920 (jellyfin) |
 
 ## Service freigeben
 
@@ -53,4 +53,4 @@ Die Registry wird von der Firewall aufgelöst — man muss nie manuell Port-Numm
 
 ## Nginx Reverse Proxy
 
-Auf roo6 läuft nginx als Reverse Proxy mit selbstsignierten Zertifikaten. Der VHost `git.roo6.lan` leitet aktuell auf den GitLab-Port weiter. Neue VHosts werden im `nginx.nix`-Modul in `nixos-profiles` ergänzt.
+Auf roo6 läuft nginx als Reverse Proxy mit selbstsignierten Zertifikaten. Der VHost `git.roo6.lan` leitet auf Gitea weiter. Neue VHosts werden im `nginx.nix`-Modul in `nixos-profiles` ergänzt.

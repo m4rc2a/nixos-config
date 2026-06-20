@@ -69,9 +69,10 @@ Alle eigenen Optionen nutzen den `custom.`-Prefix.
 - **`openFirewall = false`** bei allen Services — Firewall läuft immer zonenbasiert
 - **Port-Registration** — jeder Service, der lauscht, muss Ports in `custom.services.ports` registrieren
 - **Keine Defaults für maschinenspezifische Werte** — Usernamen, Koordinaten, Passwörter, SSH-Hosts müssen vom Host gesetzt werden
+- **Hostnames** werden immer vom Host gesetzt (`networking.hostName`), nie vom Profil
 
 ## Gotchas
 
-- **aarch64 = GRUB**: Profile defaulten auf systemd-boot. Aarch64 unterstützt das nicht — explizit GRUB aktivieren und systemd-boot deaktivieren (siehe [Raspberry Pi / ARM](raspberry-pi-arm.md))
+- **aarch64 = GRUB**: Profile defaulten auf systemd-boot. Aarch64 unterstützt das nicht — explizit GRUB aktivieren und systemd-boot deaktivieren (RPi-spezifische Details siehe [aarch64 / ARM](aarch64.md))
 - **Heads BIOS = kein Bootloader**: Kein GRUB, kein systemd-boot, keine EFI-Partition. `/boot` ist ext4, Kernel wird via kexec geladen (siehe [Heads BIOS](heads-bios.md))
-- **`custom.users.main.create = false`** auf roo6: Kein User wird erstellt, Home-Manager läuft als root
+- **`custom.users.main.create = true`** auf roo6: User `marc` wird mit SSH-Key erstellt. Home-Manager läuft für `marc` und `root`.

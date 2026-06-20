@@ -41,7 +41,7 @@
                 type = "filesystem";
                 format = "btrfs";
                 mountpoint = "/media/data";
-                mountOptions = ["defaults"];
+                mountOptions = ["compress=zstd" "noatime"];
               };
             };
           };

@@ -28,7 +28,7 @@ No Snowfall Lib. All module imports are explicit via `inputs.nixos-profiles.nixo
 
 | Host | System | Profile | Notes |
 |------|--------|---------|-------|
-| `roo6` | `aarch64-linux` | server | No user (runs as root). Overrides bootloader to GRUB (profiles default to systemd-boot). Has `network-interfaces.nix` for zone-based firewall. |
+| `roo6` | `aarch64-linux` | server | Radxa Orion O6. User `marc` with SSH key. Overrides bootloader to GRUB (profiles default to systemd-boot). Has `network-interfaces.nix` for zone-based firewall. |
 | `marc-laptop` | `x86_64-linux` | laptop | Heads BIOS — boots via kexec, no traditional bootloader. LUKS-encrypted root. Uses ext4 `/boot` (not vfat/EFI). |
 
 ## Custom Options
@@ -54,5 +54,5 @@ All custom options use `custom.` prefix. Key ones an agent will encounter:
 
 - **Bootloader override**: `roo6` must explicitly disable `systemd-boot` and enable GRUB because aarch64 doesn't support systemd-boot. If adding a new aarch64 host, do the same.
 - **Heads BIOS (marc-laptop)**: No EFI boot. `/boot` is ext4, kernel/initrd/cmdline are exported to `/boot/kexec/` via activation scripts. Don't add bootloader config to this host.
-- **`custom.users.main.create = false`** on roo6 means no user is created — home-manager runs as root there.
+- **`custom.users.main.create = true`** on roo6 means user `marc` is created with SSH key. Home-manager runs for both `marc` and `root`.
 - **No submodule anymore**: The `./home-manager` git submodule referenced in older docs has been replaced by the `hm-chammy` flake input.

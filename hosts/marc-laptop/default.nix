@@ -25,13 +25,14 @@
   # Extra system packages (machine-specific)
   environment.systemPackages = with pkgs; [
     usbutils
-    coreutils
     glib
     wineWowPackages.stable
     wineWowPackages.waylandFull
     winetricks
     distrobox
     vim
+    helix
+    yazi
     discord
   ];
 
