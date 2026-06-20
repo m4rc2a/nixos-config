@@ -60,5 +60,6 @@
 
   networking.hostName = "roo6";
   hardware.enableRedistributableFirmware = true;
+  zramSwap.enable = true;
   system.stateVersion = "25.05";
 }
