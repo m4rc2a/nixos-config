@@ -25,20 +25,14 @@
   # Disable AppArmor for now
   custom.security.apparmor.enable = lib.mkForce false;
 
-  # Override nixos-profiles default (systemd-boot) — aarch64 server uses grub
   boot.loader = {
-    systemd-boot.enable = false;
-    grub = {
-      enable = true;
-      efiSupport = true;
-      device = "nodev";
-    };
+    systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;
   };
 
   # Firewall zones
   custom.firewall.exposedByZone = {
-    lan = ["nginx" "matter-server" "homeassistant" "openssh" "gitea" "invidious" "radarr" "jellyfin"];
+    lan = ["nginx" "matter-server" "homeassistant" "openssh" "gitlab" "invidious" "radarr" "jellyfin"];
     wan = ["nginx" "matter-server" "homeassistant" "jellyfin"];
   };
 
