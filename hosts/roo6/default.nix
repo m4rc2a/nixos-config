@@ -40,6 +40,18 @@
   custom.services.homeassistant.latitude = 52.155262;
   custom.services.homeassistant.longitude = 10.517174;
 
+  custom.services.gitlab = {
+    initialRootPasswordFile = "/var/secrets/gitlab/initial_root_password";
+    databasePasswordFile = "/var/secrets/gitlab/database_password";
+    secretFile = "/var/secrets/gitlab/secret_key_base";
+    otpFile = "/var/secrets/gitlab/otp_key_base";
+    dbFile = "/var/secrets/gitlab/encryption_key";
+    jwsFile = "/var/secrets/gitlab/jws_key";
+    activeRecordPrimaryKeyFile = "/var/secrets/gitlab/active_record_primary_key";
+    activeRecordDeterministicKeyFile = "/var/secrets/gitlab/active_record_deterministic_key";
+    activeRecordSaltFile = "/var/secrets/gitlab/active_record_salt";
+  };
+
   custom.services.ssh-reverse-tunnel.enable = true;
   custom.services.ssh-reverse-tunnel.remoteHost = "shelog";
   custom.services.ssh-reverse-tunnel.tunnelPort = 2443;
