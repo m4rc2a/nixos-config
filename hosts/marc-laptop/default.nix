@@ -14,7 +14,6 @@
 
   custom.users.main.groups = ["wheel" "video" "networkmanager" "dialout" "adbusers" "docker" "plugdev"];
 
-  # Extra system packages (machine-specific)
   environment.systemPackages = with pkgs; [
     usbutils
     vim
