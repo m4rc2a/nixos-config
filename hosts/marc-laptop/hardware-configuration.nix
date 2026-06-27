@@ -15,7 +15,7 @@
     params="${toString config.boot.kernelParams}"
     echo "$params" > /boot/kexec/cmdline
 
-    menu_entry="NixOS|elf|kernel /kexec/vmlinuz|initrd /kexec/initrd|append $params"
+    menu_entry="NixOS|bzImage|kernel /kexec/vmlinuz|initrd /kexec/initrd|append $params"
     echo "$menu_entry" > /boot/kexec_menu.txt
     echo "$menu_entry" > /boot/kexec_default.1.txt
 

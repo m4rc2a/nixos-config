@@ -124,38 +124,6 @@
         "type": "github"
       }
     },
-    "flexoki-dark-yazi": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1772016989,
-        "narHash": "sha256-z8USdFAWqDl+8+aM83Hy0Wjjkdq62LC5PwcVpDMOWWY=",
-        "owner": "gosxrgxx",
-        "repo": "flexoki-dark.yazi",
-        "rev": "25d28ce199a5189dbad5d17a526d0ebdece63532",
-        "type": "github"
-      },
-      "original": {
-        "owner": "gosxrgxx",
-        "repo": "flexoki-dark.yazi",
-        "type": "github"
-      }
-    },
-    "flexoki-light-yazi": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1772019268,
-        "narHash": "sha256-yIYkgGeYHl3/iRrKzsPnh2nw0PwPD/LYm1BQMy/yvBw=",
-        "owner": "gosxrgxx",
-        "repo": "flexoki-light.yazi",
-        "rev": "1b1e67795a3eeec51aec0be74b3d76316be9aaa1",
-        "type": "github"
-      },
-      "original": {
-        "owner": "gosxrgxx",
-        "repo": "flexoki-light.yazi",
-        "type": "github"
-      }
-    },
     "fromYaml": {
       "flake": false,
       "locked": {
@@ -347,8 +315,6 @@
     "root": {
       "inputs": {
         "disko": "disko",
-        "flexoki-dark-yazi": "flexoki-dark-yazi",
-        "flexoki-light-yazi": "flexoki-light-yazi",
         "hm-chammy": "hm-chammy",
         "home-manager": "home-manager_2",
         "nixos-profiles": "nixos-profiles",
