@@ -1,6 +1,10 @@
-{ config, lib, pkgs, modulesPath, ... }:
-
 {
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}: {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
@@ -8,37 +12,35 @@
   # Kernel Export für kexec (Heads BIOS)
   # Heads lädt diese Dateien direkt beim Boot
   system.activationScripts.exportKernelForHeads = ''
-    mkdir -p /boot/kexec /boot/grub
-    cp -f ${config.system.build.kernel}/bzImage /boot/kexec/vmlinuz
-    cp -f ${config.system.build.initialRamdisk}/initrd /boot/kexec/initrd
+        mkdir -p /boot/kexec /boot/grub
+        cp -f ${config.system.build.kernel}/bzImage /boot/kexec/vmlinuz
+        cp -f ${config.system.build.initialRamdisk}/initrd /boot/kexec/initrd
 
-    params="${toString config.boot.kernelParams}"
-    echo "$params" > /boot/kexec/cmdline
+        params="${toString config.boot.kernelParams}"
+        echo "$params" > /boot/kexec/cmdline
 
-    menu_entry="NixOS|bzImage|kernel /kexec/vmlinuz|initrd /kexec/initrd|append $params"
-    echo "$menu_entry" > /boot/kexec_menu.txt
-    echo "$menu_entry" > /boot/kexec_default.1.txt
+        menu_entry="NixOS|bzImage|kernel /kexec/vmlinuz|initrd /kexec/initrd|append $params"
+        echo "$menu_entry" > /boot/kexec_menu.txt
+        echo "$menu_entry" > /boot/kexec_default.1.txt
 
-    # Heads benötigt eine grub.cfg zur Erkennung des Boot-Devices
-    cat > /boot/grub/grub.cfg << 'GRUB_EOF'
-# Platzhalter – Heads bootet via kexec, nicht GRUB
-# Diese Datei dient nur zur Boot-Device-Erkennung durch Heads
-GRUB_EOF
+        # Heads benötigt eine grub.cfg zur Erkennung des Boot-Devices
+        cat > /boot/grub/grub.cfg << 'GRUB_EOF'
+    GRUB_EOF
   '';
 
   boot = {
-    # Kein Bootloader - Heads nutzt kexec
+    # Heads nutzt kexec
     loader = {
       grub.enable = false;
       systemd-boot.enable = false;
       efi.canTouchEfiVariables = false;
     };
 
-    # Keine EFI-Unterstützung nötig
     initrd.systemd.enable = true;
 
     kernelPackages = pkgs.linuxPackages_latest;
-    supportedFilesystems = [ "ntfs" "btrfs" "ext4" ];
+
+    supportedFilesystems = ["ntfs" "btrfs" "ext4"];
 
     consoleLogLevel = 4;
 
@@ -51,17 +53,16 @@ GRUB_EOF
 
     initrd = {
       verbose = false;
-      availableKernelModules = [ "xhci_pci" "ahci" "sd_mod" "sr_mod" ];
-      kernelModules = [ "dm-snapshot" "dm-crypt" ];
+      availableKernelModules = ["xhci_pci" "ahci" "sd_mod" "sr_mod"];
+      kernelModules = ["dm-snapshot" "dm-crypt"];
     };
 
-    kernelModules = [ "tpm-rng" ];
+    kernelModules = ["tpm-rng"];
     extraModulePackages = [];
   };
 
   networking.useDHCP = lib.mkDefault true;
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
-  # TPM für Heads falls vorhanden
   hardware.enableRedistributableFirmware = true;
 }
