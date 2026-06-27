@@ -16,24 +16,12 @@
 
   custom.users.main.groups = ["wheel" "video" "networkmanager" "dialout" "adbusers" "docker" "plugdev"];
 
-  # Yazi flavors
-  custom.tools.yazi.flavors = {
-    flexoki-dark = inputs.flexoki-dark-yazi;
-    flexoki-light = inputs.flexoki-light-yazi;
-  };
-
   # Extra system packages (machine-specific)
   environment.systemPackages = with pkgs; [
     usbutils
-    glib
-    wineWowPackages.stable
-    wineWowPackages.waylandFull
-    winetricks
-    distrobox
     vim
     helix
     yazi
-    discord
   ];
 
   custom.home-manager.users.marc = [

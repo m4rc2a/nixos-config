@@ -17,16 +17,6 @@
       url = "git+https://codeberg.org/m4rc2a/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    flexoki-dark-yazi = {
-      url = "github:gosxrgxx/flexoki-dark.yazi";
-      flake = false;
-    };
-
-    flexoki-light-yazi = {
-      url = "github:gosxrgxx/flexoki-light.yazi";
-      flake = false;
-    };
   };
 
   outputs = inputs @ {
