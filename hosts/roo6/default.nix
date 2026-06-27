@@ -21,6 +21,7 @@
   users.users.marc.openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKHb/tElkqPSkzQnH2NA+B8M0VaeXyng0x6hfTGtLN7X"
   ];
+  users.users.marc.initialPassword = "changeme";
 
   # Disable AppArmor for now
   custom.security.apparmor.enable = lib.mkForce false;

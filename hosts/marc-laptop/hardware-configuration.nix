@@ -8,9 +8,9 @@
   # Kernel Export für kexec (Heads BIOS)
   # Heads lädt diese Dateien direkt beim Boot
   system.activationScripts.exportKernelForHeads = ''
-    mkdir -p /boot/kexec
-    cp ${config.system.build.kernel}/bzImage /boot/kexec/vmlinuz
-    cp ${config.system.build.initialRamdisk}/initrd /boot/kexec/initrd
+    mkdir -p /boot/kexec /boot/grub
+    cp -f ${config.system.build.kernel}/bzImage /boot/kexec/vmlinuz
+    cp -f ${config.system.build.initialRamdisk}/initrd /boot/kexec/initrd
 
     params="${toString config.boot.kernelParams}"
     echo "$params" > /boot/kexec/cmdline
@@ -18,6 +18,12 @@
     menu_entry="NixOS|elf|kernel /kexec/vmlinuz|initrd /kexec/initrd|append $params"
     echo "$menu_entry" > /boot/kexec_menu.txt
     echo "$menu_entry" > /boot/kexec_default.1.txt
+
+    # Heads benötigt eine grub.cfg zur Erkennung des Boot-Devices
+    cat > /boot/grub/grub.cfg << 'GRUB_EOF'
+# Platzhalter – Heads bootet via kexec, nicht GRUB
+# Diese Datei dient nur zur Boot-Device-Erkennung durch Heads
+GRUB_EOF
   '';
 
   boot = {
