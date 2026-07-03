@@ -224,11 +224,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1781981105,
-        "narHash": "sha256-/1nNBbA7PrSQpTc9Qazkhl4kIPg+TNl0CjxS3UQJKlw=",
+        "lastModified": 1782704057,
+        "narHash": "sha256-G1I1gd32F7mp9LAe1DaZ4ZL7NX5gyiKwdCMwro1Vrck=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "7bfff44b465909f69a442701293bc0badcf476dc",
+        "rev": "868d0a692de703c2de98fab61968e4e310b7c28e",
         "type": "github"
       },
       "original": {
@@ -240,11 +240,11 @@
     },
     "nixos-profiles": {
       "locked": {
-        "lastModified": 1782205744,
-        "narHash": "sha256-pm5LGIz5jZGXIDx9Tqa43hh7LaOYlRXAi3WC0BC0US4=",
+        "lastModified": 1783110565,
+        "narHash": "sha256-274HtuszVBMmKVys17jktCn0NvzegxoCqZron9X/dWM=",
         "ref": "refs/heads/main",
-        "rev": "8a37b6b53862fc90fb5bc95c3f08c5c60ecba1ec",
-        "revCount": 14,
+        "rev": "4953808ee05cd716aff8c1dedc1fe8a2359c2c00",
+        "revCount": 23,
         "type": "git",
         "url": "https://codeberg.org/m4rc2a/nixos-profiles"
       },
@@ -271,11 +271,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1782233679,
-        "narHash": "sha256-QyuGP5+QOtmXpy4i2X4DhBVBaySBdDKQEhqKcphcp34=",
+        "lastModified": 1782847225,
+        "narHash": "sha256-JC9PjqKYG9ve5U8aDOLQipp3+KLANBHUvGdLZlxzdKI=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "667d5cf1c59585031d743c78b394b0a647537c35",
+        "rev": "95ca1e203c0750115fd4a6f17d5a245dfe6b1edd",
         "type": "github"
       },
       "original": {

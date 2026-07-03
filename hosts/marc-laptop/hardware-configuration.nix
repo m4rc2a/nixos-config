@@ -19,13 +19,13 @@
         params="${toString config.boot.kernelParams}"
         echo "$params" > /boot/kexec/cmdline
 
-        menu_entry="NixOS|bzImage|kernel /kexec/vmlinuz|initrd /kexec/initrd|append $params"
-        echo "$menu_entry" > /boot/kexec_menu.txt
-        echo "$menu_entry" > /boot/kexec_default.1.txt
-
-        # Heads benötigt eine grub.cfg zur Erkennung des Boot-Devices
-        cat > /boot/grub/grub.cfg << 'GRUB_EOF'
-    GRUB_EOF
+        # Heads benötigt grub.cfg für Dynamic Boot
+        cat > /boot/grub/grub.cfg << GRUB_EOF
+menuentry "NixOS" {
+  linux /kexec/vmlinuz $params
+  initrd /kexec/initrd
+}
+GRUB_EOF
   '';
 
   boot = {
