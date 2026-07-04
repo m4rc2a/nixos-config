@@ -26,8 +26,9 @@
 
   home-manager.users.marc = {
     imports = [
-      inputs.hm-chammy.homeManagerModules.core
-      inputs.hm-chammy.homeManagerModules.desktop
+      "${inputs.hm-config}/modules/ssh-zones.nix"
+      "${inputs.hm-config}/profiles/core/default.nix"
+      "${inputs.hm-config}/profiles/desktop/default.nix"
     ];
   };
 

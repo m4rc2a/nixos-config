@@ -88,7 +88,7 @@ All custom options use the `custom.` prefix:
 
 ### Home Manager Integration
 
-Home-manager modules come from the `hm-chammy` flake input, not a local submodule (the `./home-manager` submodule was removed in a recent refactor).
+Home-manager modules come from the `hm-config` flake input, not a local submodule (the `./home-manager` submodule was removed in a recent refactor).
 
 ### Zone-Based Firewall System (Server)
 

@@ -53,7 +53,7 @@ Alle eigenen Optionen nutzen den `custom.`-Prefix.
 | `custom.firewall.exposedByZone` | `attrsOf (listOf str)` | `{}` | Zone → Service-Namen |
 | `custom.services.ports.<name>.tcp` | `listOf port` | `[]` | TCP-Ports eines Service |
 | `custom.services.ports.<name>.udp` | `listOf port` | `[]` | UDP-Ports eines Service |
-| `custom.home-manager.users.<name>` | `listOf module` | `[]` | hm-chammy-Module pro User |
+| `custom.home-manager.users.<name>` | `listOf module` | `[]` | hm-config-Module pro User |
 | `custom.security.apparmor.enable` | `bool` | `false` | AppArmor aktivieren |
 | `custom.security.apparmor.mode` | `enum` | `"complain"` | complain oder enforce |
 | `custom.tools.yazi.flavors` | `attrsOf path` | `{}` | Yazi-Theme-Flavors |
@@ -63,7 +63,7 @@ Alle eigenen Optionen nutzen den `custom.`-Prefix.
 
 - **Kein Snowfall Lib** — alle Imports explizit
 - **Home-Manager** als NixOS-Module integriert (`inputs.home-manager.nixosModules.home-manager`), nicht standalone
-- **Home-Manager-Module** aus `hm-chammy` Flake-Input, nicht aus lokalem Submodul
+- **Home-Manager-Module** aus `hm-config` Flake-Input, nicht aus lokalem Submodul
 - **`disk-config.nix`** nutzt disko — Device-Pfade vor Installation mit `lsblk -f` verifizieren
 - **Service-Firewall** deklarativ über `custom.firewall.exposedByZone`, nie direkt `networking.firewall`
 - **`openFirewall = false`** bei allen Services — Firewall läuft immer zonenbasiert

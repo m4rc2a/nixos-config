@@ -38,14 +38,14 @@ All custom options use `custom.` prefix. Key ones an agent will encounter:
 - `custom.users.main.create` / `custom.users.main.name` / `custom.users.main.groups` — user creation
 - `custom.firewall.zoneInterfaces` / `custom.firewall.exposedByZone` — zone-based firewall (server only)
 - `custom.services.ports.<name>.tcp/udp` — port registry, populated by service modules in nixos-profiles
-- `custom.home-manager.users.<name>` — list of hm-chammy modules to apply per user
+- `custom.home-manager.users.<name>` — list of hm-config modules to apply per user
 - `custom.security.apparmor.enable` / `.mode`
 - `custom.tools.yazi.flavors` — attrset of flake inputs for yazi theme flavors
 
 ## Conventions
 
 - Home-manager is integrated via NixOS module (`inputs.home-manager.nixosModules.home-manager`), not standalone.
-- Home-manager modules come from `hm-chammy` flake input, not the `./home-manager` submodule (removed in recent refactor).
+- Home-manager modules come from `hm-config` flake input, not the `./home-manager` submodule (removed in recent refactor).
 - Each host's `default.nix` imports the profile, disko, home-manager, and local hardware files.
 - `disk-config.nix` uses disko; device paths must be verified on target hardware (`lsblk -f`).
 - Service firewall exposure is declarative: add service name to `custom.firewall.exposedByZone.<zone>` in host config, not via `networking.firewall` directly.
@@ -55,4 +55,4 @@ All custom options use `custom.` prefix. Key ones an agent will encounter:
 - **Bootloader (roo6)**: Uses systemd-boot — aarch64 supports it since systemd v253. Do NOT add GRUB for aarch64 hosts.
 - **Heads BIOS (marc-laptop)**: No EFI boot. `/boot` is ext4, kernel/initrd/cmdline are exported to `/boot/kexec/` via activation scripts. Don't add bootloader config to this host.
 - **`custom.users.main.create = true`** on roo6 means user `marc` is created with SSH key. Home-manager runs for both `marc` and `root`.
-- **No submodule anymore**: The `./home-manager` git submodule referenced in older docs has been replaced by the `hm-chammy` flake input.
+- **No submodule anymore**: The `./home-manager` git submodule referenced in older docs has been replaced by the `hm-config` flake input.

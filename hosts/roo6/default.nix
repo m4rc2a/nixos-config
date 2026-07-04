@@ -63,11 +63,17 @@
   custom.services.ssh-reverse-tunnel.tunnelPort = 2443;
 
   home-manager.users.marc = {
-    imports = [inputs.hm-chammy.homeManagerModules.core];
+    imports = [
+      "${inputs.hm-config}/modules/ssh-zones.nix"
+      "${inputs.hm-config}/profiles/core/default.nix"
+    ];
   };
 
   home-manager.users.root = {
-    imports = [inputs.hm-chammy.homeManagerModules.core];
+    imports = [
+      "${inputs.hm-config}/modules/ssh-zones.nix"
+      "${inputs.hm-config}/profiles/core/default.nix"
+    ];
   };
 
   networking.hostName = "roo6";
