@@ -24,6 +24,10 @@
     yazi
   ];
 
+  home-manager.sharedModules = [
+    inputs.plasma-manager.homeModules.plasma-manager
+  ];
+
   home-manager.users.marc = {
     imports = [
       "${inputs.hm-config}/modules/ssh-zones.nix"

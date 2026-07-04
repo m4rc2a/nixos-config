@@ -184,11 +184,11 @@
         "stylix": "stylix"
       },
       "locked": {
-        "lastModified": 1783189848,
-        "narHash": "sha256-flMKTzr16xO95BtLlKMhuk42Yr3zaLRgY/8d18ZDgjw=",
+        "lastModified": 1783207692,
+        "narHash": "sha256-o3RHPERTfaQWZGWdg2+v8VTxvbpqLUDHmCfElcL6laE=",
         "ref": "refs/heads/main",
-        "rev": "8b60e163b0eb6874a7dd689f33043cad61d3c263",
-        "revCount": 3,
+        "rev": "fcacc78b2fcabe36b1f8b5b2eeb31f0d60c6f57a",
+        "revCount": 4,
         "type": "git",
         "url": "https://codeberg.org/m4rc2a/home-manager"
       },
@@ -261,13 +261,34 @@
         "type": "github"
       }
     },
+    "home-manager_4": {
+      "inputs": {
+        "nixpkgs": [
+          "plasma-manager",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1756579987,
+        "narHash": "sha256-duCce8zGsaMsrqqOmLOsuaV1PVIw/vXWnKuLKZClsGg=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "99a69bdf8a3c6bf038c4121e9c4b6e99706a187a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
     "nixos-profiles": {
       "locked": {
-        "lastModified": 1783197450,
-        "narHash": "sha256-JbGuzcGAkB3syY+Z+peEQ/9MMOpCdm/OqJPvcT8SMaY=",
+        "lastModified": 1783199671,
+        "narHash": "sha256-qW6Dqz4plOz5o4seAj1SNILn5k/6RsYxBrxqBUjhFKk=",
         "ref": "refs/heads/main",
-        "rev": "46e1aa0e112bce3070ad21102268a629327d8074",
-        "revCount": 25,
+        "rev": "6b377ce269026e5025fc6d42ce72c24abfd6176d",
+        "revCount": 26,
         "type": "git",
         "url": "https://codeberg.org/m4rc2a/nixos-profiles"
       },
@@ -357,13 +378,35 @@
         "type": "github"
       }
     },
+    "plasma-manager_2": {
+      "inputs": {
+        "home-manager": "home-manager_4",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1775856943,
+        "narHash": "sha256-b7Mp7P+q2Md5AGt4rjHfMcBykzMumFTen10ST++AuTU=",
+        "owner": "nix-community",
+        "repo": "plasma-manager",
+        "rev": "a524a6160e6df89f7673ba293cf7d78b559eb1a5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "plasma-manager",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "disko": "disko",
         "hm-config": "hm-config",
         "home-manager": "home-manager_3",
         "nixos-profiles": "nixos-profiles",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_2",
+        "plasma-manager": "plasma-manager_2"
       }
     },
     "stylix": {

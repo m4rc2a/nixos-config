@@ -24,11 +24,16 @@
     initialPassword = "changeme";
   };
 
-  home-manager.users.marc = {
+  home-manager.sharedModules = [
+    inputs.plasma-manager.homeModules.plasma-manager
+  ];
+
+  home-manager.users.marc = {lib, ...}: {
     imports = [
-      "${inputs.hm-config}/modules/ssh-zones.nix"
-      "${inputs.hm-config}/profiles/core/default.nix"
+      "${inputs.hm-config}/hosts/desktop-pc.nix"
     ];
+    home.username = lib.mkForce "marc";
+    home.homeDirectory = lib.mkForce "/home/marc";
   };
 
   networking.hostName = "marc-desktop";
