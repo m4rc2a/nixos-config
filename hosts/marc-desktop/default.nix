@@ -41,4 +41,7 @@
 
   networking.hostName = "marc-desktop";
   system.stateVersion = "25.11";
+
+  # vorübergehend ssh zugriff
+  services.sshd.enable = true;
 }
