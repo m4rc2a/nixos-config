@@ -62,6 +62,10 @@
   custom.services.ssh-reverse-tunnel.remoteHost = "shelog";
   custom.services.ssh-reverse-tunnel.tunnelPort = 2443;
 
+  home-manager.sharedModules = [
+    inputs.stylix.homeModules.stylix
+  ];
+
   home-manager.users.marc = {
     imports = [
       "${inputs.hm-config}/modules/ssh-zones.nix"

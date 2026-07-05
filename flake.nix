@@ -4,6 +4,11 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
 
+    stylix = {
+      url = "github:nix-community/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixos-profiles.url = "git+https://codeberg.org/m4rc2a/nixos-profiles";
 
     disko.url = "github:nix-community/disko";

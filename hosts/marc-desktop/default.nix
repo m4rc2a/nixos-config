@@ -25,6 +25,7 @@
   };
 
   home-manager.sharedModules = [
+    inputs.stylix.homeModules.stylix
     inputs.plasma-manager.homeModules.plasma-manager
   ];
 
