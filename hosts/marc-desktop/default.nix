@@ -18,6 +18,8 @@
     efi.canTouchEfiVariables = true;
   };
 
+  nixpkgs.config.allowUnfree = true;
+
   users.users.marc = {
     isNormalUser = true;
     extraGroups = ["wheel" "video" "networkmanager" "audio"];
