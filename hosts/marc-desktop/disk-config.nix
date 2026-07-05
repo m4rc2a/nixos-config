@@ -6,14 +6,24 @@
       content = {
         type = "gpt";
         partitions = {
-          boot = {
-            size = "512M";
+          esp = {
+            size = "256M";
             type = "EF00";
             content = {
               type = "filesystem";
               format = "vfat";
+              mountpoint = "/efi";
+              mountOptions = ["fmask=0077" "dmask=0077"];
+            };
+          };
+          boot = {
+            size = "256M";
+            type = "EA00";
+            content = {
+              type = "filesystem";
+              format = "ext4";
               mountpoint = "/boot";
-              mountOptions = ["fmask=0022" "dmask=0022"];
+              mountOptions = ["noatime"];
             };
           };
           luks = {

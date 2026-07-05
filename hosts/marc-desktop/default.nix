@@ -15,8 +15,13 @@
 
   boot.loader = {
     systemd-boot.enable = true;
+    systemd-boot.xbootldrMountPoint = "/boot";
     efi.canTouchEfiVariables = true;
   };
+
+  services.udisks2.enable = true;
+
+  hardware.enableRedistributableFirmware = true;
 
   nixpkgs.config.allowUnfree = true;
 

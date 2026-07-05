@@ -29,8 +29,11 @@
 
   boot.loader = {
     systemd-boot.enable = true;
+    systemd-boot.xbootldrMountPoint = "/boot";
     efi.canTouchEfiVariables = true;
   };
+
+  services.udisks2.enable = true;
 
   # Firewall zones
   custom.firewall.exposedByZone = {
