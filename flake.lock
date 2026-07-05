@@ -184,11 +184,11 @@
         "stylix": "stylix"
       },
       "locked": {
-        "lastModified": 1783207692,
-        "narHash": "sha256-o3RHPERTfaQWZGWdg2+v8VTxvbpqLUDHmCfElcL6laE=",
+        "lastModified": 1783262208,
+        "narHash": "sha256-MYtidvjc2Gwd2t/rq1aDPR6MMYfE2vsZoUSzN/MZHdc=",
         "ref": "refs/heads/main",
-        "rev": "fcacc78b2fcabe36b1f8b5b2eeb31f0d60c6f57a",
-        "revCount": 4,
+        "rev": "3a8e286ae4d726714785ebe40c97bb9f0436813c",
+        "revCount": 6,
         "type": "git",
         "url": "https://codeberg.org/m4rc2a/home-manager"
       },
