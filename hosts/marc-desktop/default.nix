@@ -17,6 +17,7 @@
     systemd-boot.enable = true;
     systemd-boot.xbootldrMountPoint = "/boot";
     efi.canTouchEfiVariables = true;
+    efi.efiSysMountPoint = "/efi";
   };
 
   services.udisks2.enable = true;
