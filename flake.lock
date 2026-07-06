@@ -322,11 +322,11 @@
         "stylix": "stylix"
       },
       "locked": {
-        "lastModified": 1783284026,
-        "narHash": "sha256-3JpMBABdzrWrQPAo/U4SO8v0Lvz7Gc2sWp0xPtVnsDc=",
+        "lastModified": 1783364238,
+        "narHash": "sha256-maDCbN37EznU45VFx/PD3l8f/qkyOnqCa89cwnr+XW4=",
         "ref": "refs/heads/main",
-        "rev": "f8cc64af9a9651d3fa92327c536c09030ff97e9b",
-        "revCount": 8,
+        "rev": "105039ae09eb3ace4bce758c9b70b3681e8823ef",
+        "revCount": 10,
         "type": "git",
         "url": "https://codeberg.org/m4rc2a/home-manager"
       },
@@ -627,11 +627,11 @@
         "tinted-zed": "tinted-zed_2"
       },
       "locked": {
-        "lastModified": 1783307741,
-        "narHash": "sha256-c/FqXr+r16WM3ad/o+fzDcDSnqmItPkMbbJ/9FhO81Q=",
+        "lastModified": 1783358511,
+        "narHash": "sha256-/F85cBWvU8b2hpawuCog464065ZTJtdMgVPWwJ9yHjE=",
         "owner": "nix-community",
         "repo": "stylix",
-        "rev": "9837fb7867cc0356d86e02c3398ea876d43826c1",
+        "rev": "14814ef555d8148ab82eba5054e654cd9eae3a1f",
         "type": "github"
       },
       "original": {
