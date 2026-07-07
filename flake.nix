@@ -10,6 +10,7 @@
     };
 
     nixos-profiles.url = "git+https://codeberg.org/m4rc2a/nixos-profiles";
+    # nixos-profiles.url = "path:/home/nixos/src/nixos-profiles";
 
     disko.url = "github:nix-community/disko";
 
@@ -20,6 +21,7 @@
 
     hm-config = {
       url = "git+https://codeberg.org/m4rc2a/home-manager";
+      # url = "path:/home/nixos/src/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
