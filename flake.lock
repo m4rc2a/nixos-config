@@ -322,11 +322,11 @@
         "stylix": "stylix"
       },
       "locked": {
-        "lastModified": 1783431777,
-        "narHash": "sha256-A0IVdozleQWEVUBNRMe+IEZI2NUEGD6yv77vt8pyQHI=",
+        "lastModified": 1783446554,
+        "narHash": "sha256-Vk/KPF73mUmVynPiKnxLVTFD8sCCXyJzie8sN2MbKsc=",
         "ref": "refs/heads/main",
-        "rev": "e34310c5dcba2169a0be228911beaef2c3a34ff4",
-        "revCount": 20,
+        "rev": "ca09071f7ae99803ce93820b92f10e5fea15c08a",
+        "revCount": 21,
         "type": "git",
         "url": "https://codeberg.org/m4rc2a/home-manager"
       },
@@ -422,11 +422,11 @@
     },
     "nixos-profiles": {
       "locked": {
-        "lastModified": 1783199671,
-        "narHash": "sha256-qW6Dqz4plOz5o4seAj1SNILn5k/6RsYxBrxqBUjhFKk=",
+        "lastModified": 1783447017,
+        "narHash": "sha256-EeCRqHOGNtWKBaK2c7LwbTKgVYDZlhbRU4ds6PcJWsg=",
         "ref": "refs/heads/main",
-        "rev": "6b377ce269026e5025fc6d42ce72c24abfd6176d",
-        "revCount": 26,
+        "rev": "50923091d2f829e860c9448b4612ead148aacc89",
+        "revCount": 31,
         "type": "git",
         "url": "https://codeberg.org/m4rc2a/nixos-profiles"
       },
