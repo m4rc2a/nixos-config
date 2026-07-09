@@ -4,11 +4,6 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
 
-    stylix = {
-      url = "github:nix-community/stylix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     disko.url = "github:nix-community/disko";
 
     home-manager = {
@@ -19,6 +14,22 @@
     hm-config = {
       url = "git+https://codeberg.org/m4rc2a/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    stylix = {
+      url = "github:nix-community/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    niri = {
+      url = "github:sodiboo/niri-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    helix-vim = {
+      url = "github:chtenb/helix.vim";
+      inputs.nixpkgs.follows = "nixpkgs";
+      flake = false;
     };
   };
 

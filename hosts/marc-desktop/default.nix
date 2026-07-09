@@ -32,6 +32,7 @@
 
   home-manager.sharedModules = [
     inputs.stylix.homeModules.stylix
+    inputs.niri.homeModules.niri
   ];
 
   home-manager.users.marc = {lib, ...}: {
