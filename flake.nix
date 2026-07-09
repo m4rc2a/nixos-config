@@ -17,8 +17,7 @@
     };
 
     hm-config = {
-      url = "git+https://codeberg.org/m4rc2a/home-manager";
-      # url = "path:/home/nixos/src/home-manager";
+      url = "path:/home/nixos/src/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
