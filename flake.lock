@@ -311,25 +311,9 @@
         "type": "github"
       }
     },
-    "helix-vim_2": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1764342545,
-        "narHash": "sha256-BYXknpFAX2vQpebAN4yGuve+2jpB8j1ZS1dXaq2kuI0=",
-        "owner": "chtenb",
-        "repo": "helix.vim",
-        "rev": "958314b6210d93d1abd4b1bc23b06a69fd17e3e9",
-        "type": "github"
-      },
-      "original": {
-        "owner": "chtenb",
-        "repo": "helix.vim",
-        "type": "github"
-      }
-    },
     "hm-config": {
       "inputs": {
-        "helix-vim": "helix-vim_2",
+        "helix-vim": "helix-vim",
         "home-manager": "home-manager",
         "niri": "niri",
         "nixpkgs": [
@@ -674,7 +658,6 @@
     "root": {
       "inputs": {
         "disko": "disko",
-        "helix-vim": "helix-vim",
         "hm-config": "hm-config",
         "home-manager": "home-manager_3",
         "niri": "niri_2",

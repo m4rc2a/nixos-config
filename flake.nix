@@ -25,12 +25,6 @@
       url = "github:sodiboo/niri-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    helix-vim = {
-      url = "github:chtenb/helix.vim";
-      inputs.nixpkgs.follows = "nixpkgs";
-      flake = false;
-    };
   };
 
   outputs = inputs @ {

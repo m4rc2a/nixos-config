@@ -8,7 +8,14 @@
     ../modules/home-manager.nix
     ../modules/packages.nix
     ../modules/nano-replacement.nix
-    ../modules/tools
+    ../modules/tools/files.nix
+    ../modules/tools/processes.nix
+    ../modules/tools/networking.nix
+    ../modules/tools/tmux.nix
+    ../modules/tools/hardware.nix
+    ../modules/tools/helix.nix
+    ../modules/tools/archives.nix
+    ../modules/tools/data.nix
 
     # Desktop
     ../modules/desktop/greetd.nix
@@ -17,8 +24,6 @@
     ../modules/desktop/bluetooth.nix
     ../modules/desktop/printing.nix
   ];
-
-  custom.greetd.session = "plasma";
 
   services.gvfs.enable = true;
 

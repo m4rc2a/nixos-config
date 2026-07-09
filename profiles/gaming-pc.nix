@@ -7,7 +7,12 @@
     ../modules/networking.nix
     ../modules/home-manager.nix
     ../modules/nano-replacement.nix
-    ../modules/tools
+    ../modules/tools/files.nix
+    ../modules/tools/processes.nix
+    ../modules/tools/networking.nix
+    ../modules/tools/hardware.nix
+    ../modules/tools/helix.nix
+    ../modules/tools/data.nix
 
     # Desktop
     ../modules/desktop/greetd.nix
@@ -19,8 +24,6 @@
     # Gaming
     ../modules/gaming/steam.nix
   ];
-
-  custom.greetd.session = "startplasma-wayland";
 
   services.gvfs.enable = true;
 
