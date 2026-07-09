@@ -4,7 +4,7 @@
   ...
 }: {
   imports = [
-    inputs.nixos-profiles.nixosProfiles.laptop
+    ../../profiles/laptop.nix
     inputs.disko.nixosModules.default
     inputs.home-manager.nixosModules.home-manager
 
@@ -28,7 +28,6 @@
 
   home-manager.sharedModules = [
     inputs.stylix.homeModules.stylix
-    inputs.plasma-manager.homeModules.plasma-manager
   ];
 
   home-manager.users.marc = {

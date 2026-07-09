@@ -6,7 +6,7 @@
   ...
 }: {
   imports = [
-    inputs.nixos-profiles.nixosProfiles.server
+    ../../profiles/server.nix
     inputs.disko.nixosModules.default
     inputs.home-manager.nixosModules.home-manager
 

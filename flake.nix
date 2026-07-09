@@ -9,9 +9,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixos-profiles.url = "git+https://codeberg.org/m4rc2a/nixos-profiles";
-    # nixos-profiles.url = "path:/home/nixos/src/nixos-profiles";
-
     disko.url = "github:nix-community/disko";
 
     home-manager = {
@@ -22,11 +19,6 @@
     hm-config = {
       url = "git+https://codeberg.org/m4rc2a/home-manager";
       # url = "path:/home/nixos/src/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    plasma-manager = {
-      url = "github:nix-community/plasma-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
