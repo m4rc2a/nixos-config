@@ -45,24 +45,6 @@
           };
         };
       };
-      data = {
-        type = "disk";
-        device = "/dev/nvme1n1"; # VERIFY: lsblk -f auf roo6
-        content = {
-          type = "gpt";
-          partitions = {
-            data = {
-              size = "100%";
-              content = {
-                type = "filesystem";
-                format = "btrfs";
-                mountpoint = "/media/data";
-                mountOptions = ["compress=zstd" "noatime"];
-              };
-            };
-          };
-        };
-      };
     };
   };
 }
