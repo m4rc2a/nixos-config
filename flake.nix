@@ -25,6 +25,16 @@
       url = "github:sodiboo/niri-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nixos-secrets = {
+      url = "git+file:///home/nixos/src/nixos-secrets";
+      flake = false;
+    };
   };
 
   outputs = inputs @ {

@@ -9,6 +9,7 @@
     ../../profiles/server.nix
     inputs.disko.nixosModules.default
     inputs.home-manager.nixosModules.home-manager
+    inputs.sops-nix.nixosModules.sops
 
     ./disk-config.nix
     ./hardware-configuration.nix
@@ -59,6 +60,53 @@
       activeRecordPrimaryKeyFile = "/var/secrets/gitlab/active_record_primary_key";
       activeRecordDeterministicKeyFile = "/var/secrets/gitlab/active_record_deterministic_key";
       activeRecordSaltFile = "/var/secrets/gitlab/active_record_salt";
+    };
+  };
+
+  sops.defaultSopsFile = "${inputs.nixos-secrets}/secrets.yaml";
+  sops.age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
+  sops.secrets = {
+    ssh-tunnel-key = {
+      path = "/var/lib/sshtunnel/.ssh/id_ed25519";
+      owner = "sshtunnel";
+      group = "sshtunnel";
+      mode = "0600";
+    };
+    gitlab-initial-root-password = {
+      path = "/var/secrets/gitlab/initial_root_password";
+      mode = "0600";
+    };
+    gitlab-database-password = {
+      path = "/var/secrets/gitlab/database_password";
+      mode = "0600";
+    };
+    gitlab-secret-key-base = {
+      path = "/var/secrets/gitlab/secret_key_base";
+      mode = "0600";
+    };
+    gitlab-otp-key-base = {
+      path = "/var/secrets/gitlab/otp_key_base";
+      mode = "0600";
+    };
+    gitlab-encryption-key = {
+      path = "/var/secrets/gitlab/encryption_key";
+      mode = "0600";
+    };
+    gitlab-jws-key = {
+      path = "/var/secrets/gitlab/jws_key";
+      mode = "0600";
+    };
+    gitlab-activerecord-primary-key = {
+      path = "/var/secrets/gitlab/active_record_primary_key";
+      mode = "0600";
+    };
+    gitlab-activerecord-deterministic-key = {
+      path = "/var/secrets/gitlab/active_record_deterministic_key";
+      mode = "0600";
+    };
+    gitlab-activerecord-salt = {
+      path = "/var/secrets/gitlab/active_record_salt";
+      mode = "0600";
     };
   };
 
