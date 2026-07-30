@@ -18,6 +18,11 @@
 
   nixpkgs.config.allowUnfree = true;
 
+  nix.settings = {
+    substituters = [ "https://i-am-logger.cachix.org" ];
+    trusted-public-keys = [ "i-am-logger.cachix.org-1:wGCjEpWzIVhSWh0Pe+3VbIvecLaUIhjaWx5vjXzWUOE=" ];
+  };
+
   users.users.marc = {
     isNormalUser = true;
     extraGroups = ["wheel"];
