@@ -46,6 +46,7 @@ in {
         User = "sshtunnel";
         WorkingDirectory = "/var/lib/sshtunnel";
         Environment = "AUTOSSH_GATETIME=0";
+        ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p /var/lib/sshtunnel/.ssh";
         ExecStart = ''
           ${pkgs.autossh}/bin/autossh \
             -M 0 \
