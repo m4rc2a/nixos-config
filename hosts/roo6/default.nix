@@ -7,6 +7,7 @@
 }: {
   imports = [
     ../../profiles/server.nix
+    inputs.cix-orion-o6.nixosModules.orion-o6
     inputs.disko.nixosModules.default
     inputs.home-manager.nixosModules.home-manager
     inputs.sops-nix.nixosModules.sops
