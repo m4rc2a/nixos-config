@@ -9,34 +9,15 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  # Kernel Export für kexec (Heads BIOS)
-  # Heads lädt diese Dateien direkt beim Boot
-  system.activationScripts.exportKernelForHeads = ''
-        mkdir -p /boot/kexec /boot/grub
-        cp -f ${config.system.build.kernel}/bzImage /boot/kexec/vmlinuz
-        cp -f ${config.system.build.initialRamdisk}/initrd /boot/kexec/initrd
-
-        params="${toString config.boot.kernelParams}"
-        echo "$params" > /boot/kexec/cmdline
-
-        # Heads benötigt grub.cfg für Dynamic Boot
-        cat > /boot/grub/grub.cfg << GRUB_EOF
-menuentry "NixOS" {
-  linux /kexec/vmlinuz $params
-  initrd /kexec/initrd
-}
-GRUB_EOF
-  '';
-
   boot = {
-    # Heads nutzt kexec
     loader = {
-      grub.enable = false;
-      systemd-boot.enable = false;
-      efi.canTouchEfiVariables = false;
+      # GRUB im Legacy BIOS Modus — Heads bootet GRUB von der EF02 Partition
+      grub = {
+        enable = true;
+        efiSupport = false;
+        efiInstallAsRemovable = false;
+      };
     };
-
-    initrd.systemd.enable = true;
 
     kernelPackages = pkgs.linuxPackages_latest;
 
@@ -47,12 +28,11 @@ GRUB_EOF
     kernelParams = [
       "quiet"
       "splash"
-      "boot.shell_on_fail"
       "udev.log_priority=3"
     ];
 
     initrd = {
-      verbose = false;
+      verbose = true;
       availableKernelModules = ["xhci_pci" "ahci" "sd_mod" "sr_mod"];
       kernelModules = ["dm-snapshot" "dm-crypt"];
     };

@@ -1,6 +1,6 @@
 {
-  # Heads-kompatible Partitionierung ohne EFI
-  # Heads lädt Kernel direkt via kexec von einer unverschlüsselten Boot-Partition
+  # Legacy BIOS-kompatible Partitionierung mit GPT + EF02
+  # Heads bootet GRUB von der BIOS Boot Partition, GRUB lädt Kernel+Initrd von /boot
   disko.devices = {
     disk = {
       main = {
@@ -9,7 +9,12 @@
         content = {
           type = "gpt";
           partitions = {
-            # Unverschlüsselte Boot-Partition für Heads kexec
+            # BIOS Boot Partition für GRUB Core Image (legacy BIOS auf GPT)
+            biosBoot = {
+              size = "1M";
+              type = "EF02";
+            };
+            # Unverschlüsselte Boot-Partition für GRUB
             boot = {
               size = "512M";
               content = {
@@ -26,7 +31,6 @@
                 type = "luks";
                 name = "crypted";
                 settings.allowDiscards = true;
-                passwordFile = "/tmp/secret.key";
                 content = {
                   type = "btrfs";
                   extraArgs = ["-f"];
