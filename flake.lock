@@ -143,17 +143,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1785407553,
-        "narHash": "sha256-v+ol5Zzvpe76W9Q5zWLZZKIHWVqWAQnm5anEdT8lKHA=",
-        "owner": "m4rc2a",
-        "repo": "nixos-cix-orion-o6",
-        "rev": "3cb8592793603160fabe84d469acad70cc272740",
-        "type": "github"
+        "lastModified": 1785425190,
+        "narHash": "sha256-CVFJzA9+2bNBsBY3oQQKnHLsXbzHAeb5ZlVwSQ7GGPw=",
+        "ref": "refs/heads/main",
+        "rev": "6891eff8ed4f51444cae30f9eee01f7c97293ef9",
+        "revCount": 5,
+        "type": "git",
+        "url": "file:///home/nixos/src/nixos-cix-orion-o6"
       },
       "original": {
-        "owner": "m4rc2a",
-        "repo": "nixos-cix-orion-o6",
-        "type": "github"
+        "type": "git",
+        "url": "file:///home/nixos/src/nixos-cix-orion-o6"
       }
     },
     "disko": {

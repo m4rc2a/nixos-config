@@ -27,7 +27,7 @@
     };
 
     cix-orion-o6 = {
-      url = "github:m4rc2a/nixos-cix-orion-o6";
+      url = "git+file:///home/nixos/src/nixos-cix-orion-o6";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
