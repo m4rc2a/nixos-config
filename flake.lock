@@ -136,6 +136,26 @@
         "type": "github"
       }
     },
+    "cix-orion-o6": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1785407553,
+        "narHash": "sha256-v+ol5Zzvpe76W9Q5zWLZZKIHWVqWAQnm5anEdT8lKHA=",
+        "owner": "m4rc2a",
+        "repo": "nixos-cix-orion-o6",
+        "rev": "3cb8592793603160fabe84d469acad70cc272740",
+        "type": "github"
+      },
+      "original": {
+        "owner": "m4rc2a",
+        "repo": "nixos-cix-orion-o6",
+        "type": "github"
+      }
+    },
     "disko": {
       "inputs": {
         "nixpkgs": "nixpkgs"
@@ -630,6 +650,7 @@
     },
     "root": {
       "inputs": {
+        "cix-orion-o6": "cix-orion-o6",
         "disko": "disko",
         "hm-config": "hm-config",
         "home-manager": "home-manager_2",

@@ -7,6 +7,7 @@
 }: {
   imports = [
     ../../profiles/server.nix
+    inputs.cix-orion-o6.nixosModules.orion-o6
     inputs.disko.nixosModules.default
     inputs.home-manager.nixosModules.home-manager
     inputs.sops-nix.nixosModules.sops
@@ -51,7 +52,7 @@
   sops.defaultSopsFile = "${inputs.nixos-secrets}/secrets.yaml";
   sops.age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
   sops.secrets = {
-    ssh-tunnel-key = {
+    shelog_ed25519 = {
       path = "/var/lib/sshtunnel/.ssh/id_ed25519";
       owner = "sshtunnel";
       group = "sshtunnel";
