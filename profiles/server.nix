@@ -23,7 +23,6 @@
     ../modules/security/service-ports.nix
 
     # Services
-    ../modules/services/gitlab.nix
     ../modules/services/homeassistant.nix
     ../modules/services/i2p.nix
     ../modules/services/invidious.nix

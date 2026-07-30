@@ -39,7 +39,7 @@
 
   # Firewall zones
   custom.firewall.exposedByZone = {
-    lan = ["nginx" "matter-server" "homeassistant" "openssh" "gitlab" "invidious" "radarr" "jellyfin"];
+    lan = ["nginx" "matter-server" "homeassistant" "openssh" "invidious" "radarr" "jellyfin"];
     wan = ["nginx" "matter-server" "homeassistant" "jellyfin"];
   };
 
@@ -48,21 +48,6 @@
     latitude = 52.155262;
     longitude = 10.517174;
   };
-
-  services.gitlab = {
-    initialRootPasswordFile = "/var/secrets/gitlab/initial_root_password";
-    databasePasswordFile = "/var/secrets/gitlab/database_password";
-    secrets = {
-      secretFile = "/var/secrets/gitlab/secret_key_base";
-      otpFile = "/var/secrets/gitlab/otp_key_base";
-      dbFile = "/var/secrets/gitlab/encryption_key";
-      jwsFile = "/var/secrets/gitlab/jws_key";
-      activeRecordPrimaryKeyFile = "/var/secrets/gitlab/active_record_primary_key";
-      activeRecordDeterministicKeyFile = "/var/secrets/gitlab/active_record_deterministic_key";
-      activeRecordSaltFile = "/var/secrets/gitlab/active_record_salt";
-    };
-  };
-
   sops.defaultSopsFile = "${inputs.nixos-secrets}/secrets.yaml";
   sops.age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
   sops.secrets = {
