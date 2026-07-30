@@ -13,7 +13,6 @@
 
     ./disk-config.nix
     ./hardware-configuration.nix
-    ./network-interfaces.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -36,12 +35,6 @@
   };
 
   services.udisks2.enable = true;
-
-  # Firewall zones
-  custom.firewall.exposedByZone = {
-    lan = ["nginx" "matter-server" "homeassistant" "openssh" "invidious" "radarr" "jellyfin"];
-    wan = ["nginx" "matter-server" "homeassistant" "jellyfin"];
-  };
 
   # Service overrides
   services.home-assistant.config.homeassistant = {
