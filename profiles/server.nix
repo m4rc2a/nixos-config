@@ -19,8 +19,6 @@
 
     # Security
     ../modules/security/apparmor.nix
-    ../modules/security/firewall.nix
-    ../modules/security/service-ports.nix
 
     # Services
     ../modules/services/homeassistant.nix
@@ -33,6 +31,8 @@
     ../modules/services/radarr.nix
     ../modules/services/ssh-reverse-tunnel.nix
   ];
+
+  networking.firewall.enable = true;
 
   environment.variables = {
     EDITOR = "hx";

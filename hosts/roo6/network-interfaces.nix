@@ -11,11 +11,6 @@
     };
   };
 
-  custom.firewall.zoneInterfaces = {
-    wan = ["wan0"];
-    lan = ["lan0"];
-  };
-
   boot.kernel.sysctl = {
     "net.ipv4.ip_forward" = 0;
     "net.ipv6.conf.all.forwarding" = 0;
