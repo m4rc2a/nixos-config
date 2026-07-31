@@ -1,7 +1,5 @@
 {
-  config,
   lib,
-  pkgs,
   inputs,
   ...
 }: {
@@ -25,9 +23,6 @@
     ];
     initialPassword = "changeme";
   };
-
-  # Disable AppArmor for now
-  security.apparmor.enable = lib.mkForce false;
 
   boot.loader = {
     systemd-boot.enable = true;

@@ -17,9 +17,6 @@
     ../modules/tools/archives.nix
     ../modules/tools/data.nix
 
-    # Security
-    ../modules/security/apparmor.nix
-
     # Services
     ../modules/services/homeassistant.nix
     ../modules/services/i2p.nix
