@@ -15,6 +15,8 @@
 
   nixpkgs.config.allowUnfree = true;
 
+  networking.hostName = "roo6";
+
   users.users.marc = {
     isNormalUser = true;
     extraGroups = ["wheel"];
@@ -36,6 +38,8 @@
     latitude = 52.155262;
     longitude = 10.517174;
   };
+
+  # Secrets
   sops.defaultSopsFile = "${inputs.nixos-secrets}/secrets.yaml";
   sops.age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
   sops.secrets = {
@@ -79,8 +83,8 @@
     ];
   };
 
-  networking.hostName = "roo6";
   hardware.enableRedistributableFirmware = true;
   zramSwap.enable = true;
+
   system.stateVersion = "25.05";
 }
