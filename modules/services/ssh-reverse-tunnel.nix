@@ -21,6 +21,16 @@ in {
       type = lib.types.port;
       description = "Local port exposed via reverse tunnel on the remote.";
     };
+    sshPort = lib.mkOption {
+      type = lib.types.port;
+      default = 22;
+      description = "SSH port of the remote host to connect to.";
+    };
+    user = lib.mkOption {
+      type = lib.types.nullOr lib.types.str;
+      default = null;
+      description = "Remote SSH user for the tunnel connection.";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -53,9 +63,13 @@ in {
             -N \
             -R ${toString cfg.tunnelPort}:localhost:${toString cfg.remotePort} \
             -i /var/lib/sshtunnel/.ssh/id_ed25519 \
+            -p ${toString cfg.sshPort} \
+            ${lib.optionalString (cfg.user != null) "-l ${cfg.user}"} \
             -o ServerAliveInterval=60 \
             -o ServerAliveCountMax=3 \
             -o ExitOnForwardFailure=yes \
+            -o StrictHostKeyChecking=accept-new \
+            -o UserKnownHostsFile=/var/lib/sshtunnel/.ssh/known_hosts \
             ${cfg.remoteHost}
         '';
         Restart = "always";

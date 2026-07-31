@@ -53,7 +53,9 @@
   };
 
   custom.services.ssh-reverse-tunnel.enable = true;
-  custom.services.ssh-reverse-tunnel.remoteHost = "shelog";
+  custom.services.ssh-reverse-tunnel.remoteHost = "shelog.stratum0.org";
+  custom.services.ssh-reverse-tunnel.user = "marc";
+  custom.services.ssh-reverse-tunnel.sshPort = 20022;
   custom.services.ssh-reverse-tunnel.tunnelPort = 2443;
 
   home-manager.sharedModules = [
