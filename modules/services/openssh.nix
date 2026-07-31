@@ -2,6 +2,7 @@
   config = {
     services.openssh = {
       enable = true;
+      openFirewall = true;
       ports = lib.mkDefault [22];
       settings = {
         PermitRootLogin = "no";
@@ -9,7 +10,5 @@
       };
     };
 
-    custom.services.ports.openssh.tcp = [22];
-    custom.services.ports.openssh.udp = [];
   };
 }

@@ -56,7 +56,6 @@
       mkdir -p /run/nginx
     '';
 
-    custom.services.ports.nginx.tcp = [80 443];
-    custom.services.ports.nginx.udp = [];
+    networking.firewall.allowedTCPPorts = [80 443];
   };
 }

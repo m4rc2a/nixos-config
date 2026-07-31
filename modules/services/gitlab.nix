@@ -18,8 +18,6 @@
         };
       };
     };
-
-    custom.services.ports.gitlab.tcp = [8080];
-    custom.services.ports.gitlab.udp = [];
+    networking.firewall.allowedTCPPorts = [8080];
   };
 }
