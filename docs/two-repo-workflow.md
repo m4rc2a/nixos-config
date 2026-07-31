@@ -31,15 +31,14 @@ nixos-rebuild switch --flake .#<hostname> --target-host root@<host>
 1. Moduldatei in `modules/services/<name>.nix` erstellen
 2. In `flake.nix` unter `nixosModules` eintragen: `service-<name> = ./modules/services/<name>.nix;`
 3. Zum relevanten Profil in `profiles/` hinzufügen
-4. Im Host-Config den Service in Firewall-Zonen freigeben: `custom.firewall.exposedByZone.<zone> = [ ... "<name>" ];`
+4. Firewall-Port über `services.<name>.openFirewall = true` oder `networking.firewall.allowedTCPPorts` öffnen
 5. Ggf. Host-spezifische Optionen setzen (Pfade, Passwörter, Koordinaten etc.)
 
 ## Regeln
 
 - **Keine externen Inputs** in nixos-profiles — Inhalte über Options injizieren (vgl. `custom.tools.yazi.flavors`)
 - **Alle Optionen unter `custom.*`** — kein Eingriff in den NixOS-Options-Namespace
-- **`openFirewall = false`** bei allen Services — Firewall läuft immer zonenbasiert über das Custom-System
-- **Port-Registration** — jeder Service, der auf einem Port lauscht, muss diesen in `custom.services.ports.<name>` registrieren
+- **Firewall** wird über `services.<name>.openFirewall = true` oder `networking.firewall.allowedTCPPorts` in den Service-Modulen geöffnet
 
 ## Module-Pattern
 
@@ -60,11 +59,8 @@ in {
   config = {
     services.<nixos-service> = {
       enable = true;
-      openFirewall = false;
+      openFirewall = true;
     };
-
-    custom.services.ports.<name>.tcp = [ cfg.port ];
-    custom.services.ports.<name>.udp = [];
   };
 }
 ```

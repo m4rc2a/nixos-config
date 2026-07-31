@@ -28,7 +28,7 @@ No Snowfall Lib. All module imports are explicit via `inputs.nixos-profiles.nixo
 
 | Host | System | Profile | Notes |
 |------|--------|---------|-------|
-| `roo6` | `aarch64-linux` | server | Radxa Orion O6. User `marc` with SSH key. Uses systemd-boot (aarch64 supported since systemd v253). Has `network-interfaces.nix` for zone-based firewall. |
+| `roo6` | `aarch64-linux` | server | Radxa Orion O6. User `marc` with SSH key. Uses systemd-boot (aarch64 supported since systemd v253). `network-interfaces.nix` for MAC-based interface naming. |
 | `marc-laptop` | `x86_64-linux` | laptop | Heads BIOS — boots via kexec, no traditional bootloader. LUKS-encrypted root. Uses ext4 `/boot` (not vfat/EFI). |
 
 ## Custom Options
@@ -36,8 +36,7 @@ No Snowfall Lib. All module imports are explicit via `inputs.nixos-profiles.nixo
 All custom options use `custom.` prefix. Key ones an agent will encounter:
 
 - `custom.users.main.create` / `custom.users.main.name` / `custom.users.main.groups` — user creation
-- `custom.firewall.zoneInterfaces` / `custom.firewall.exposedByZone` — zone-based firewall (server only)
-- `custom.services.ports.<name>.tcp/udp` — port registry, populated by service modules in nixos-profiles
+
 - `custom.home-manager.users.<name>` — list of hm-config modules to apply per user
 - `custom.security.apparmor.enable` / `.mode`
 - `custom.tools.yazi.flavors` — attrset of flake inputs for yazi theme flavors
@@ -48,7 +47,7 @@ All custom options use `custom.` prefix. Key ones an agent will encounter:
 - Home-manager modules come from `hm-config` flake input, not the `./home-manager` submodule (removed in recent refactor).
 - Each host's `default.nix` imports the profile, disko, home-manager, and local hardware files.
 - `disk-config.nix` uses disko; device paths must be verified on target hardware (`lsblk -f`).
-- Service firewall exposure is declarative: add service name to `custom.firewall.exposedByZone.<zone>` in host config, not via `networking.firewall` directly.
+- Firewall is configured via `services.<name>.openFirewall = true` or `networking.firewall.allowedTCPPorts` directly in service modules.
 
 ## Gotchas
 

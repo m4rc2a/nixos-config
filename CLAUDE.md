@@ -59,7 +59,7 @@ hosts/
 
 Profiles are the primary mechanism for host differentiation. Each imports a specific set of shared modules:
 
-- **Server** — Base + security (doas + apparmor) + all services + firewall
+- **Server** — Base + security (doas + apparmor) + all services
 - **Laptop** — Base + desktop + virtualization + gaming + development + security
 
 ### Custom Options
@@ -71,12 +71,11 @@ All custom options use the `custom.` prefix:
 | `custom.users.main.name` | users | Main username (null = no user created) |
 | `custom.users.main.groups` | users | Extra groups for main user |
 | `custom.boot.sky1Kernel.enable` | boot | Sky1 kernel with hardware patches |
-| `custom.firewall.zoneInterfaces` | firewall | Zone → interface mapping |
-| `custom.firewall.exposedByZone` | firewall | Zone → service names mapping |
+
 | `custom.security.apparmor.enable` | apparmor | Enable AppArmor |
 | `custom.security.apparmor.mode` | apparmor | complain or enforce |
 | `custom.tools.yazi.flavors` | yazi | Flavor theme paths (attrset) |
-| `custom.services.ports.*` | service-ports | Port registry (tcp/udp per service) |
+
 | `custom.services.<name>.port(s)` | services | Per-service port config |
 
 ### Current Hosts
@@ -90,15 +89,11 @@ All custom options use the `custom.` prefix:
 
 Home-manager modules come from the `hm-config` flake input, not a local submodule (the `./home-manager` submodule was removed in a recent refactor).
 
-### Zone-Based Firewall System (Server)
+### Firewall
 
-A declarative firewall that maps services → zones → interfaces:
-
-1. **Port Registry** (`service-ports` module): `custom.services.ports.<service>.tcp/udp`
-2. **Service Ports** (service modules): Each service writes its ports to the registry
-3. **Zone Exposure** (host config): `custom.firewall.exposedByZone.<zone>` lists service names
-4. **Interface Mapping** (host config): `custom.firewall.zoneInterfaces` maps zones to interfaces
-5. **Firewall Module**: Aggregates all mappings to generate `networking.firewall.interfaces`
+Firewall is enabled via the server profile. Services open ports using:
+- `services.<name>.openFirewall = true` (for services that support it)
+- `networking.firewall.allowedTCPPorts` otherwise
 
 ### Adding a New Host
 
@@ -112,10 +107,8 @@ A declarative firewall that maps services → zones → interfaces:
 ### Adding a New Service (in nixos-profiles)
 
 1. Create module in `modules/services/<name>.nix`
-2. Define port options under `custom.services.<name>.port(s)`
-3. Register ports: `custom.services.ports.<name>.tcp = [cfg.port]`
-4. Add module to the server profile's import list
-5. In host config, add service name to `custom.firewall.exposedByZone.<zone>`
+2. Enable the service and open its firewall port via `services.<name>.openFirewall = true` or `networking.firewall.allowedTCPPorts`
+3. Add module to the server profile's import list
 
 ### Heads BIOS (marc-laptop)
 

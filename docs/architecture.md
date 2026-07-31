@@ -49,10 +49,7 @@ Alle eigenen Optionen nutzen den `custom.`-Prefix.
 | `custom.users.main.create` | `bool` | `true` | Haupt-User erstellen |
 | `custom.users.main.name` | `str` | `"marc"` | Username |
 | `custom.users.main.groups` | `listOf str` | `["wheel"]` | Zusätzliche Gruppen |
-| `custom.firewall.zoneInterfaces` | `attrsOf (listOf str)` | `{}` | Zone → Interfaces |
-| `custom.firewall.exposedByZone` | `attrsOf (listOf str)` | `{}` | Zone → Service-Namen |
-| `custom.services.ports.<name>.tcp` | `listOf port` | `[]` | TCP-Ports eines Service |
-| `custom.services.ports.<name>.udp` | `listOf port` | `[]` | UDP-Ports eines Service |
+
 | `custom.home-manager.users.<name>` | `listOf module` | `[]` | hm-config-Module pro User |
 | `custom.security.apparmor.enable` | `bool` | `false` | AppArmor aktivieren |
 | `custom.security.apparmor.mode` | `enum` | `"complain"` | complain oder enforce |
@@ -65,9 +62,7 @@ Alle eigenen Optionen nutzen den `custom.`-Prefix.
 - **Home-Manager** als NixOS-Module integriert (`inputs.home-manager.nixosModules.home-manager`), nicht standalone
 - **Home-Manager-Module** aus `hm-config` Flake-Input, nicht aus lokalem Submodul
 - **`disk-config.nix`** nutzt disko — Device-Pfade vor Installation mit `lsblk -f` verifizieren
-- **Service-Firewall** deklarativ über `custom.firewall.exposedByZone`, nie direkt `networking.firewall`
-- **`openFirewall = false`** bei allen Services — Firewall läuft immer zonenbasiert
-- **Port-Registration** — jeder Service, der lauscht, muss Ports in `custom.services.ports` registrieren
+- **Firewall** über `services.<name>.openFirewall = true` oder `networking.firewall.allowedTCPPorts` in den Service-Modulen
 - **Keine Defaults für maschinenspezifische Werte** — Usernamen, Koordinaten, Passwörter, SSH-Hosts müssen vom Host gesetzt werden
 - **Hostnames** werden immer vom Host gesetzt (`networking.hostName`), nie vom Profil
 
