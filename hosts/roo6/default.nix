@@ -58,6 +58,14 @@
 
   home-manager.sharedModules = [
     inputs.stylix.homeModules.stylix
+    {
+      stylix.targets = {
+        gtk.enable = false;
+        eog.enable = false;
+        gnome-text-editor.enable = false;
+        gnome.enable = false;
+      };
+    }
   ];
 
   home-manager.users.marc = {
