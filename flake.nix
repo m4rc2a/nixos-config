@@ -12,7 +12,7 @@
     };
 
     hm-config = {
-      url = "git+https://codeberg.org/m4rc2a/home-manager";
+      url = "git+ssh://git@codeberg.org/m4rc2a/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
