@@ -35,6 +35,10 @@
   sops.age.keyFile = "/etc/sops/age/keys.txt";
   sops.age.generateKey = true;
 
+  home-manager.extraSpecialArgs = {
+    nixos_secrets = inputs.nixos-secrets;
+  };
+
   home-manager.sharedModules = [
     inputs.stylix.homeModules.stylix
     inputs.niri.homeModules.niri
