@@ -5,9 +5,7 @@
 | Repo | Inhalt | Ort |
 |------|--------|-----|
 | `hm-config` | Geteilte Home-Manager-Module und -Profile | [Codeberg](https://codeberg.org/m4rc2a/home-manager), Flake-Input |
-| **dieses Repo** | Hardware-Konfigs, Profil-Zuweisung, Host-Overrides, lokale `profiles/` + `modules/` | [Codeberg](https://codeberg.org/m4rc2a/nixos-config) |
-
-Arbeits-Rechner liegen in einem separaten GitLab-Repo.
+| **dieses Repo** | Hardware-Konfigs, System-Zuweisung, Node-Overrides, lokale `systems/` + `modules/` | [Codeberg](https://codeberg.org/m4rc2a/nixos-config) |
 
 Kein Snowfall Lib. Alle Modul-Imports explizit.
 
@@ -15,9 +13,9 @@ Kein Snowfall Lib. Alle Modul-Imports explizit.
 
 ```
 nixos-config/
-├── flake.nix              # Host-Definitionen (roo6, marc-laptop, marc-desktop) + deploy-rs
+├── flake.nix              # Node-Definitionen (roo6, marc-laptop, marc-desktop) + deploy-rs
 ├── flake.lock
-├── hosts/
+├── nodes/
 │   ├── roo6/
 │   │   ├── default.nix              # Server-Profil + Overrides
 │   │   ├── hardware-configuration.nix
@@ -31,21 +29,21 @@ nixos-config/
 │       ├── default.nix              # Gaming-PC-Profil + Overrides
 │       ├── hardware-configuration.nix
 │       └── disk-config.nix          # disko
-├── profiles/             # Lokale Profile (server, laptop, desktop, gaming-pc, wsl)
+├── systems/              # Lokale Systeme (server, laptop, desktop, gaming-pc, wsl)
 ├── modules/              # Lokale NixOS-Module (Services, Tools, Desktop, Security, ...)
 └── docs/                 # Diese Doku
 ```
 
-## Profile
+## Systeme
 
-Profile bündeln lokale Module zu einer fertigen Konfiguration.
+Systeme bündeln lokale Module zu einer fertigen Konfiguration.
 
-| Profil | Enthält |
+| System | Enthält |
 |--------|---------|
 | **server** | Basis + alle Services + Firewall |
 | **laptop** | Basis + Desktop (sway, pipewire) + Virtualisierung + Gaming + Entwicklung + Sicherheit |
 | **desktop** / **gaming-pc** | Basis + Desktop (plasma) + Gaming |
-| **wsl** | Minimale Basis (kein Desktop, keine Services, keine Sicherheit) |
+| **wsl** | Minimale Basis (kein Desktop, keine Services, keine Sicherheit) — Vorlage für zukünftige WSL-Installationen |
 
 ## Deployment (deploy-rs)
 
@@ -53,7 +51,7 @@ Hosts werden mit [deploy-rs](deploy-rs.md) deployed, das die `deploy`-Nodes/-Pro
 
 ```bash
 nix run .#deploy-rs -- .#<node>          # Node deployen
-nix run .#deploy-rs -- --groups <group>  # Gruppe filtern (servers/laptops/desktops/personal/all)
+nix run .#deploy-rs -- --groups <group>  # Gruppe filtern (servers/laptops/desktops/all)
 ```
 
 ## Custom Options

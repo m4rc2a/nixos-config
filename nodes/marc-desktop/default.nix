@@ -5,7 +5,7 @@
   ...
 }: {
   imports = [
-    ../../profiles/gaming-pc.nix
+    ../../systems/gaming-pc.nix
     inputs.disko.nixosModules.default
     inputs.home-manager.nixosModules.home-manager
     inputs.sops-nix.nixosModules.sops

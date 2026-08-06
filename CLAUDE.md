@@ -26,7 +26,7 @@ nix run github:numtide/nixos-anywhere -- --flake .#<hostname> root@<host>
 # Deploy config changes to a running host (deploy-rs)
 nix run .#deploy-rs -- .#<hostname>          # all profiles on a node
 nix run .#deploy-rs -- .#<hostname>.<profile> # single profile
-nix run .#deploy-rs -- --groups <group>       # group tag: servers/laptops/desktops/personal/all
+nix run .#deploy-rs -- --groups <group>       # group tag: servers/laptops/desktops/all
 nix run .#deploy-rs -- --dry-run .            # dry-run everything
 ```
 
@@ -35,9 +35,7 @@ nix run .#deploy-rs -- --dry-run .            # dry-run everything
 This is a flake-based NixOS configuration split into two repos:
 
 1. **`hm-config`** (Codeberg) — Shared home-manager modules and profiles. Consumed as a flake input.
-2. **This repo** — Private host-specific configs: hardware, machine overrides, profile assignment, and local `profiles/` + `modules/`.
-
-Work-related hosts (wsl, rpi5-webserver) live in a separate repo on Arbeitgeber GitLab (`git@code.arbeitgeber.com:marc.zander/nixos-config.git`).
+2. **This repo** — Private host-specific configs: hardware, machine overrides, profile assignment, and local `systems/` + `modules/`.
 
 ### No Snowfall Lib
 
@@ -46,7 +44,7 @@ Snowfall Lib has been removed. All module imports are explicit via profiles. No 
 ### Directory Structure
 
 ```
-hosts/
+nodes/
 ├── roo6/
 │   ├── default.nix              # Server profile + hardware + overrides
 │   ├── hardware-configuration.nix
@@ -62,14 +60,14 @@ hosts/
     └── disk-config.nix
 ```
 
-### Profiles (local)
+### Systems (local)
 
-Profiles are the primary mechanism for host differentiation. Each imports a specific set of local modules:
+Systems are the mechanism for host differentiation. Each imports a specific set of local modules:
 
 - **server** — Base + services + firewall
 - **laptop** — Base + desktop + virtualization + gaming + development + security
 - **desktop** / **gaming-pc** — Base + desktop + gaming
-- **wsl** — Minimal base (no desktop, no services)
+- **wsl** — Minimal base (no desktop, no services) — template for future WSL installs
 
 Home-manager modules come from the `hm-config` flake input.
 
@@ -125,10 +123,10 @@ nix run github:numtide/nixos-anywhere -- --flake .#<hostname> root@<host>
 
 ### Adding a New Host
 
-1. Create `hosts/<hostname>/default.nix`
+1. Create `nodes/<hostname>/default.nix`
 2. Add `hardware-configuration.nix` (generate with `nixos-generate-config`)
 3. Add `disk-config.nix` (disko partition layout for nixos-anywhere)
-4. Import the desired profile (`../../profiles/<profile>.nix`)
+4. Import the desired system (`../../systems/<system>.nix`)
 5. Set machine-specific options (users, hostname, secrets, home-manager users)
 6. Register in `flake.nix` under `nixosConfigurations`
 7. If you also want to deploy it with deploy-rs, add a matching `deploy.nodes.<hostname>` entry
@@ -137,7 +135,7 @@ nix run github:numtide/nixos-anywhere -- --flake .#<hostname> root@<host>
 
 1. Create module in `modules/services/<name>.nix`
 2. Enable the service and open its firewall port via `services.<name>.openFirewall = true` or `networking.firewall.allowedTCPPorts`
-3. Add module to the relevant profile's import list in `profiles/`
+3. Add module to the relevant system's import list in `systems/`
 
 ### Heads BIOS (marc-laptop)
 

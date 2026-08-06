@@ -67,19 +67,19 @@
       roo6 = nixpkgs.lib.nixosSystem {
         system = "aarch64-linux";
         specialArgs = nixosArgs;
-        modules = [./hosts/roo6];
+        modules = [./nodes/roo6];
       };
 
       marc-laptop = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = nixosArgs;
-        modules = [./hosts/marc-laptop];
+        modules = [./nodes/marc-laptop];
       };
 
       marc-desktop = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = nixosArgs;
-        modules = [./hosts/marc-desktop];
+        modules = [./nodes/marc-desktop];
       };
     };
 
@@ -202,7 +202,7 @@
             };
           };
           profilesOrder = ["system" "home-marc"];
-          groups = ["laptops" "personal" "all"];
+          groups = ["laptops" "all"];
         };
 
         marc-desktop = {
@@ -218,7 +218,7 @@
             };
           };
           profilesOrder = ["system" "home-marc"];
-          groups = ["desktops" "personal" "all"];
+          groups = ["desktops" "all"];
         };
       };
     };

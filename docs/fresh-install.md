@@ -46,7 +46,7 @@ ssh root@<ip-des-ziels>
 lsblk -f
 ```
 
-Die Device-Pfade in `hosts/<hostname>/disk-config.nix` müssen mit der echten Hardware übereinstimmen. Vor der Installation anpassen falls nötig.
+Die Device-Pfade in `nodes/<hostname>/disk-config.nix` müssen mit der echten Hardware übereinstimmen. Vor der Installation anpassen falls nötig.
 
 ## 5. LUKS-Passwort vorbereiten (falls verschlüsselt)
 

@@ -12,7 +12,7 @@ Remote deploy (deploy-rs):
 ```bash
 nix run .#deploy-rs -- .#<node>                # deploy a node (all its profiles)
 nix run .#deploy-rs -- .#<node>.<profile>      # deploy a single profile
-nix run .#deploy-rs -- --groups <group>        # deploy by group tag (servers/laptops/desktops/personal/all)
+nix run .#deploy-rs -- --groups <group>        # deploy by group tag (servers/laptops/desktops/all)
 nix run .#deploy-rs -- --dry-run .             # dry-run everything
 ```
 
@@ -25,9 +25,7 @@ nix run github:numtide/nixos-anywhere -- --flake .#<hostname> root@<host>
 
 Two-repo split — **this repo is host configs only**:
 - `hm-config` (Codeberg, flake input) — shared home-manager modules/profiles.
-- **This repo** — hardware configs, profile assignment, machine-specific overrides, local `profiles/` + `modules/`.
-
-Work hosts (wsl, rpi5-webserver) live in a **separate Arbeitgeber GitLab repo** (`git@code.arbeitgeber.com:marc.zander/nixos-config.git`).
+- **This repo** — hardware configs, profile assignment, machine-specific overrides, local `systems/` + `modules/`.
 
 No Snowfall Lib. All module imports are explicit.
 

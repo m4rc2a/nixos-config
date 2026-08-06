@@ -11,7 +11,7 @@ nix run .#deploy-rs -- .#<node>
 # Einzelnes Profil
 nix run .#deploy-rs -- .#<node>.<profile>
 
-# Gruppen-Filter (servers/laptops/desktops/personal/all)
+# Gruppen-Filter (servers/laptops/desktops/all)
 nix run .#deploy-rs -- --groups <group>
 
 # Dry-Run (baut + zeigt, aktiviert nicht)

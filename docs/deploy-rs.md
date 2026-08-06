@@ -9,7 +9,7 @@
 | **Deploy** | Top-Level-Output `deploy`, enthält alle Nodes | `deploy.nodes` |
 | **Node** | Ein Host (SSH-Ziel) mit `hostname` + einer Liste von Profilen | `roo6`, `marc-laptop`, `marc-desktop` |
 | **Profile** | Ein deploybares Teil (Closure + Aktivierungs-Script) für einen bestimmten User | `system`, `home-marc`, `home-root` |
-| **Group** | Tag zum Filtern, **kein** Mapping von Name → Nodes | `servers`, `laptops`, `desktops`, `personal`, `all` |
+| **Group** | Tag zum Filtern, **kein** Mapping von Name → Nodes | `servers`, `laptops`, `desktops`, `all` |
 
 Einstellungen werden mit Priorität **profil > node > deploy** gemerged (bestätigt in `lib.rs` / `make_deploy_data`).
 
@@ -19,7 +19,7 @@ Einstellungen werden mit Priorität **profil > node > deploy** gemerged (bestät
 
 ```bash
 deploy --groups servers
-deploy --groups personal
+deploy --groups desktops
 ```
 
 Es gibt **kein** `deploy.groups = { name = [nodes]; }`-Mapping — das ist kein gültiger deploy-rs-Output (symmetrisch zu `interface.json`).
@@ -70,8 +70,8 @@ In `flake.nix` definiert unter `deploy`:
 | Node | `hostname` | `sshUser` | `interactiveSudo` | `magicRollback` | Gruppen |
 |------|------------|-----------|-------------------|-----------------|---------|
 | `roo6` | `roo6` | `marc` | `true` | `true` | servers, all |
-| `marc-laptop` | `marc-laptop` | `marc` | `true` | `true` | laptops, personal, all |
-| `marc-desktop` | `marc-desktop` | `marc` | `true` | `true` | desktops, personal, all |
+| `marc-laptop` | `marc-laptop` | `marc` | `true` | `true` | laptops, all |
+| `marc-desktop` | `marc-desktop` | `marc` | `true` | `true` | desktops, all |
 
 Profile pro Node:
 
@@ -96,13 +96,13 @@ nix run .#deploy-rs -- .#marc-laptop.home-marc
 
 # Gruppen-Filter (nur Nodes/Profile mit dem Tag)
 nix run .#deploy-rs -- --groups servers
-nix run .#deploy-rs -- --groups personal
+nix run .#deploy-rs -- --groups desktops
 
 # Dry-Run (baut und zeigt, aktiviert nicht)
 nix run .#deploy-rs -- --dry-run .#all   # 'all' ist ein Node-Fragment, kein Gruppentag!
 ```
 
-> **Wichtig:** `.#personal` / `.#all` sind **keine** gültigen Fragmente. Ein Fragment ist nur `node` oder `node.profile`. Gruppen wählt man ausschließlich mit `--groups`.
+> **Wichtig:** `.#all` ist **kein** gültiges Fragment. Ein Fragment ist nur `node` oder `node.profile`. Gruppen wählt man ausschließlich mit `--groups`.
 
 `deploy .` (ohne `#`) deployt alle Nodes/Profile.
 
