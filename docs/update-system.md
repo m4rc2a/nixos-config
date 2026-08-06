@@ -1,16 +1,24 @@
 # System aktualisieren
 
-## Remote (empfohlen)
+## Deployment mit deploy-rs (empfohlen)
+
+Hosts dieses Repos werden mit [deploy-rs](deploy-rs.md) deployed, nicht mit `nixos-rebuild --target-host`:
 
 ```bash
-# Config bauen und deployen
-nixos-rebuild switch --flake .#<hostname> --target-host root@<host>
+# Alle Profile auf einer Node deployen
+nix run .#deploy-rs -- .#<node>
 
-# Dry-run (nur bauen, nicht anwenden)
-nixos-rebuild build --flake .#<hostname>
+# Einzelnes Profil
+nix run .#deploy-rs -- .#<node>.<profile>
+
+# Gruppen-Filter (servers/laptops/desktops/personal/all)
+nix run .#deploy-rs -- --groups <group>
+
+# Dry-Run (baut + zeigt, aktiviert nicht)
+nix run .#deploy-rs -- --dry-run .
 ```
 
-> **Hinweis:** `--target-host` braucht Root-SSH. Auf Hosts mit `PermitRootLogin = "no"` (z.B. roo6) muss auf dem Zielsystem selbst gebaut werden — siehe [Remote Deploy](remote-deploy.md).
+> deploy-rs verbindet als `marc`, fragt das Sudo-Passwort ab (`interactiveSudo`) und nutzt Magic Rollback, damit fehlgeschlagene SSH-kritische Änderungen automatisch zurückgerollt werden.
 
 ## Lokal auf dem Zielsystem
 
@@ -27,6 +35,8 @@ sudo nixos-rebuild switch --rollback
 # Oder im Boot-Menü eine ältere Generation wählen
 ```
 
+Deploy-rs rollt bei Aktivierungsfehlern (autoRollback) bzw. wenn die Maschine nach dem Switch unerreichbar wird (magicRollback) automatisch zurück.
+
 ## Flake-Inputs aktualisieren
 
 ```bash
@@ -34,10 +44,10 @@ sudo nixos-rebuild switch --rollback
 nix flake update
 
 # Einzelnes Input aktualisieren
-nix flake lock --update-input nixos-profiles
+nix flake lock --update-input hm-config
 ```
 
 ## Nächste Schritte
 
 - Nach jedem Rebuild auf dem Laptop mit Heads BIOS: Signierung erneuern — siehe [Heads BIOS](heads-bios.md#6-nach-jedem-nixos-rebuild)
-- Nach Änderungen in `nixos-profiles`: Flake-Input updaten — siehe [Two-Repo-Workflow](two-repo-workflow.md)
+- Nach Änderungen in `hm-config`: Flake-Input updaten — siehe [Two-Repo-Workflow](two-repo-workflow.md)

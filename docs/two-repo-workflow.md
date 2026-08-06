@@ -1,12 +1,12 @@
 # Two-Repo-Workflow
 
-Wenn ein Service-Modul, Profil oder Basis-Modul in `nixos-profiles` geändert werden muss.
+Wenn ein Home-Manager-Modul oder -Profil in `hm-config` geändert werden muss.
 
-## 1. Änderung in nixos-profiles
+## 1. Änderung in hm-config
 
 ```bash
-git clone git@codeberg.org:m4rc2a/nixos-profiles.git
-cd nixos-profiles
+git clone git@codeberg.org:m4rc2a/home-manager.git
+cd home-manager
 
 # Modul ändern/erstellen...
 git add -A && git commit -m "Beschreibung der Änderung"
@@ -17,52 +17,46 @@ git push origin main
 
 ```bash
 cd ~/src/nixos-config
-nix flake lock --update-input nixos-profiles
+nix flake lock --update-input hm-config
 ```
 
 ## 3. Deployen
 
 ```bash
-nixos-rebuild switch --flake .#<hostname> --target-host root@<host>
+nix run .#deploy-rs -- .#<node>
 ```
 
-## Neues Service-Modul hinzufügen
+## Neues Home-Manager-Modul hinzufügen
 
-1. Moduldatei in `modules/services/<name>.nix` erstellen
-2. In `flake.nix` unter `nixosModules` eintragen: `service-<name> = ./modules/services/<name>.nix;`
-3. Zum relevanten Profil in `profiles/` hinzufügen
-4. Firewall-Port über `services.<name>.openFirewall = true` oder `networking.firewall.allowedTCPPorts` öffnen
-5. Ggf. Host-spezifische Optionen setzen (Pfade, Passwörter, Koordinaten etc.)
+1. Moduldatei in `hm-config/modules/<name>.nix` erstellen
+2. In `hm-config` zum relevanten Profil in `modules/<profil>.nix` oder `profiles/` hinzufügen
+3. Auf Host-Seite unter `home-manager.users.<name>.imports` referenzieren oder in `hmConfigurations` in `flake.nix` aufnehmen
+
+## NixOS-Modul oder lokales Profil ändern (dieses Repo)
+
+Für NixOS-Services, Tools, Desktop-Module o.ä. sind die Module **lokal** in `modules/` und die Profile in `profiles/`:
+
+1. Modul erstellen/ändern: `modules/services/<name>.nix` etc.
+2. Zum Profil-Import in `profiles/<profil>.nix` hinzufügen
+3. Firewall-Port über `services.<name>.openFirewall = true` oder `networking.firewall.allowedTCPPorts` öffnen
+4. Lokales `nixos-rebuild build --flake .#<hostname>` zum Testen, dann deployen
 
 ## Regeln
 
-- **Keine externen Inputs** in nixos-profiles — Inhalte über Options injizieren (vgl. `custom.tools.yazi.flavors`)
-- **Alle Optionen unter `custom.*`** — kein Eingriff in den NixOS-Options-Namespace
+- **Home-Manager (hm-config) vs NixOS (lokal)**: geteilte HM-Module gehören in `hm-config`; NixOS-Module, Services und Profile gehören in dieses Repo unter `modules/` bzw. `profiles/`
 - **Firewall** wird über `services.<name>.openFirewall = true` oder `networking.firewall.allowedTCPPorts` in den Service-Modulen geöffnet
 
 ## Module-Pattern
 
-Jedes Service-Modul in `nixos-profiles` folgt demselben Aufbau:
+Jedes lokale Service-Modul in `modules/services/` folgt diesem Aufbau:
 
 ```nix
 { lib, config, ... }: let
-  cfg = config.custom.services.<name>;
+  cfg = config.services.<name>;
 in {
-  options.custom.services.<name> = {
-    port = lib.mkOption {
-      type = lib.types.port;
-      default = <default-port>;
-      description = "<Service> port.";
-    };
-  };
-
-  config = {
-    services.<nixos-service> = {
-      enable = true;
-      openFirewall = true;
-    };
+  services.<nixos-service> = {
+    enable = true;
+    openFirewall = true;
   };
 }
 ```
-
-Optionen ohne Default (erforderlich) erhalten kein `default` — der Host muss sie setzen.

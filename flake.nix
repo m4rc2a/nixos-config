@@ -221,15 +221,6 @@
           groups = ["desktops" "personal" "all"];
         };
       };
-
-      # Filter targets by group: deploy --groups <name>
-      groups = {
-        servers = ["roo6"];
-        laptops = ["marc-laptop"];
-        desktops = ["marc-desktop"];
-        personal = ["marc-laptop" "marc-desktop"];
-        all = ["roo6" "marc-laptop" "marc-desktop"];
-      };
     };
 
     # Validate the deployment definitions on `nix flake check`.

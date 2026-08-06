@@ -4,18 +4,18 @@
 
 | Repo | Inhalt | Ort |
 |------|--------|-----|
-| `nixos-profiles` | Alle geteilten Module, Services, Profile | [Codeberg](https://codeberg.org/m4rc2a/nixos-profiles), Flake-Input |
-| **dieses Repo** | Hardware-Konfigs, Profil-Zuweisung, Host-Overrides | [Codeberg](https://codeberg.org/m4rc2a/nixos-config) |
+| `hm-config` | Geteilte Home-Manager-Module und -Profile | [Codeberg](https://codeberg.org/m4rc2a/home-manager), Flake-Input |
+| **dieses Repo** | Hardware-Konfigs, Profil-Zuweisung, Host-Overrides, lokale `profiles/` + `modules/` | [Codeberg](https://codeberg.org/m4rc2a/nixos-config) |
 
 Arbeits-Rechner liegen in einem separaten GitLab-Repo.
 
-Kein Snowfall Lib. Alle Modul-Imports explizit über `inputs.nixos-profiles.nixosProfiles.<profile>`.
+Kein Snowfall Lib. Alle Modul-Imports explizit.
 
 ## Verzeichnisstruktur
 
 ```
 nixos-config/
-├── flake.nix              # Host-Definitionen (roo6, marc-laptop)
+├── flake.nix              # Host-Definitionen (roo6, marc-laptop, marc-desktop) + deploy-rs
 ├── flake.lock
 ├── hosts/
 │   ├── roo6/
@@ -23,22 +23,38 @@ nixos-config/
 │   │   ├── hardware-configuration.nix
 │   │   ├── disk-config.nix          # disko
 │   │   └── network-interfaces.nix   # MAC-Adressen, Zonen
-│   └── marc-laptop/
-│       ├── default.nix              # Laptop-Profil + Overrides
+│   ├── marc-laptop/
+│   │   ├── default.nix              # Laptop-Profil + Overrides
+│   │   ├── hardware-configuration.nix
+│   │   └── disk-config.nix          # disko (LUKS + btrfs)
+│   └── marc-desktop/
+│       ├── default.nix              # Gaming-PC-Profil + Overrides
 │       ├── hardware-configuration.nix
-│       └── disk-config.nix          # disko (LUKS + btrfs)
-└── docs/                            # Diese Doku
+│       └── disk-config.nix          # disko
+├── profiles/             # Lokale Profile (server, laptop, desktop, gaming-pc, wsl)
+├── modules/              # Lokale NixOS-Module (Services, Tools, Desktop, Security, ...)
+└── docs/                 # Diese Doku
 ```
 
 ## Profile
 
-Profile bündeln Module zu einer fertigen Konfiguration.
+Profile bündeln lokale Module zu einer fertigen Konfiguration.
 
 | Profil | Enthält |
 |--------|---------|
-| **server** | Basis + Sicherheit (doas + apparmor) + alle Services + Firewall |
+| **server** | Basis + alle Services + Firewall |
 | **laptop** | Basis + Desktop (sway, pipewire) + Virtualisierung + Gaming + Entwicklung + Sicherheit |
+| **desktop** / **gaming-pc** | Basis + Desktop (plasma) + Gaming |
 | **wsl** | Minimale Basis (kein Desktop, keine Services, keine Sicherheit) |
+
+## Deployment (deploy-rs)
+
+Hosts werden mit [deploy-rs](deploy-rs.md) deployed, das die `deploy`-Nodes/-Profile in `flake.nix` nutzt. Komfort-Kommando:
+
+```bash
+nix run .#deploy-rs -- .#<node>          # Node deployen
+nix run .#deploy-rs -- --groups <group>  # Gruppe filtern (servers/laptops/desktops/personal/all)
+```
 
 ## Custom Options
 
@@ -68,6 +84,7 @@ Alle eigenen Optionen nutzen den `custom.`-Prefix.
 
 ## Gotchas
 
-- **aarch64 = GRUB**: Profile defaulten auf systemd-boot. Aarch64 unterstützt das nicht — explizit GRUB aktivieren und systemd-boot deaktivieren (RPi-spezifische Details siehe [aarch64 / ARM](aarch64.md))
+- **aarch64 = systemd-boot**: Auf roo6 ist systemd-boot aktiv (aarch64 unterstützt es seit systemd v253). Kein GRUB für aarch64-Hosts hinzufügen.
 - **Heads BIOS = kein Bootloader**: Kein GRUB, kein systemd-boot, keine EFI-Partition. `/boot` ist ext4, Kernel wird via kexec geladen (siehe [Heads BIOS](heads-bios.md))
 - **`custom.users.main.create = true`** auf roo6: User `marc` wird mit SSH-Key erstellt. Home-Manager läuft für `marc` und `root`.
+- **home-manager leitet `specialArgs` nicht automatisch weiter**: bei Bedarf `home-manager.extraSpecialArgs` setzen (z.B. `nixos_secrets` für `marc-desktop`).
