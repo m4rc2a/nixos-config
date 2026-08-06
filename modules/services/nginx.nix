@@ -1,6 +1,5 @@
 {
   lib,
-  config,
   pkgs,
   ...
 }: {
@@ -46,7 +45,7 @@
         sslCertificate = "/etc/ssl/certs/git.roo6.lan.crt";
         sslCertificateKey = "/etc/ssl/private/git.roo6.lan.key";
         locations."/" = {
-          proxyPass = "http://127.0.0.1:${toString config.services.gitlab.port}";
+          proxyPass = "http://127.0.0.1:3000";
           proxyWebsockets = true;
         };
       };

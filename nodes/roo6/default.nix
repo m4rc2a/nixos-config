@@ -49,6 +49,11 @@
       group = "sshtunnel";
       mode = "0600";
     };
+    forgejo_session_key = {
+      owner = "forgejo";
+      group = "forgejo";
+      mode = "0400";
+    };
   };
 
   custom.services.ssh-reverse-tunnel.enable = true;

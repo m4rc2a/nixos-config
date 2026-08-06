@@ -35,6 +35,9 @@
     ../modules/services/i2p.nix
     ../modules/services/radarr.nix
 
+    ## web
+    ../modules/services/forgejo.nix
+
     ## admin
     ../modules/services/openssh.nix
     ../modules/services/ssh-reverse-tunnel.nix
