@@ -23,9 +23,14 @@ nix run github:numtide/nixos-anywhere -- --flake .#<hostname> root@<host>
 
 ## Architecture
 
-Two-repo split — **this repo is host configs only**:
-- `hm-config` (Codeberg, flake input) — shared home-manager modules/profiles.
-- **This repo** — hardware configs, profile assignment, machine-specific overrides, local `systems/` + `modules/`.
+Two-repo split — **this repo is node configs only**:
+- `hm-config` (Codeberg, flake input) — shared home-manager modules/profiles (has its own `hosts/` + `profiles/` dirs; those are the OTHER repo, not renamed).
+- **This repo** — hardware configs, system assignment, machine-specific overrides, local `nodes/` + `systems/` + `modules/`.
+
+### Directory naming (avoid confusion with deploy-rs)
+- **`nodes/`** = one dir per machine (`roo6`, `marc-laptop`, `marc-desktop`). These are the deploy-rs "nodes".
+- **`systems/`** = local NixOS "system" bundles (`server`, `laptop`, `desktop`, `gaming-pc`, `wsl`). Do NOT call deploy-rs's inner deployables (its `system`/`home-marc`/`home-root`) "profiles" here — deploy-rs uses that word for them.
+- **`systems/wsl.nix`** is a **template** for future WSL installs — it is NOT a deployed node/host and is not referenced by any `flake.nix`/`nodes/*`. Don't deploy it or register it.
 
 No Snowfall Lib. All module imports are explicit.
 
