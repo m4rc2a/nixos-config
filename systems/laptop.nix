@@ -5,7 +5,6 @@
     ../modules/locale.nix
     ../modules/time.nix
     ../modules/networking.nix
-    ../modules/home-manager.nix
     ../modules/nano-replacement.nix
 
     # tools

@@ -108,20 +108,15 @@
       };
     };
 
-    # Standalone home-manager configurations, extracted so deploy-rs can deploy
-    # them independently of the NixOS `home-manager.users` integration.
+    # Standalone home-manager configurations. These are the only Home Manager
+    # source (deployed as the owning user via deploy-rs), so per-user details
+    # live in modules/home/*.nix.
     hmConfigurations = {
       "roo6.marc" = inputs.home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.aarch64-linux;
         extraSpecialArgs = hmExtraSpecialArgs;
         modules = [
-          {
-            home.username = "marc";
-            home.homeDirectory = "/home/marc";
-          }
-          "${inputs.hm-config}/modules/ssh-zones.nix"
-          "${inputs.hm-config}/profiles/core/default.nix"
-          "${inputs.hm-config}/platforms/server.nix"
+          ./modules/home/roo6-marc.nix
           hmCommonModule
           hmStylixScheme
           inputs.stylix.homeModules.stylix
@@ -132,13 +127,7 @@
         pkgs = nixpkgs.legacyPackages.aarch64-linux;
         extraSpecialArgs = hmExtraSpecialArgs;
         modules = [
-          {
-            home.username = "root";
-            home.homeDirectory = "/root";
-          }
-          "${inputs.hm-config}/modules/ssh-zones.nix"
-          "${inputs.hm-config}/profiles/core/default.nix"
-          "${inputs.hm-config}/platforms/server.nix"
+          ./modules/home/roo6-root.nix
           hmCommonModule
           hmStylixScheme
           inputs.stylix.homeModules.stylix
@@ -149,19 +138,10 @@
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = hmExtraSpecialArgs;
         modules = [
-          {
-            home.username = "marc";
-            home.homeDirectory = "/home/marc";
-          }
-          "${inputs.hm-config}/modules/ssh-zones.nix"
-          "${inputs.hm-config}/modules/ssh-zones-config.nix"
-          "${inputs.hm-config}/profiles/core/default.nix"
-          "${inputs.hm-config}/profiles/desktop/default.nix"
+          ./modules/home/marc-laptop.nix
           hmCommonModule
           hmStylixScheme
           inputs.stylix.homeModules.stylix
-          inputs.niri.homeModules.niri
-          inputs.sops-nix.homeManagerModules.sops
         ];
       };
 
@@ -169,12 +149,10 @@
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = hmExtraSpecialArgs;
         modules = [
-          "${inputs.hm-config}/hosts/desktop-pc.nix"
+          ./modules/home/marc-desktop.nix
           hmCommonModule
           hmStylixScheme
           inputs.stylix.homeModules.stylix
-          inputs.niri.homeModules.niri
-          inputs.sops-nix.homeManagerModules.sops
         ];
       };
     };

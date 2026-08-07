@@ -1,13 +1,12 @@
 {
-  lib,
   inputs,
+  lib,
   ...
 }: {
   imports = [
     ../../systems/server.nix
     ../../modules/stylix.nix
     inputs.disko.nixosModules.default
-    inputs.home-manager.nixosModules.home-manager
     inputs.sops-nix.nixosModules.sops
 
     ./disk-config.nix
@@ -74,22 +73,6 @@
   custom.services.ssh-reverse-tunnel.user = "marc";
   custom.services.ssh-reverse-tunnel.sshPort = 20022;
   custom.services.ssh-reverse-tunnel.tunnelPort = 2443;
-
-  home-manager.users.marc = {
-    imports = [
-      "${inputs.hm-config}/modules/ssh-zones.nix"
-      "${inputs.hm-config}/profiles/core/default.nix"
-      "${inputs.hm-config}/platforms/server.nix"
-    ];
-  };
-
-  home-manager.users.root = {
-    imports = [
-      "${inputs.hm-config}/modules/ssh-zones.nix"
-      "${inputs.hm-config}/profiles/core/default.nix"
-      "${inputs.hm-config}/platforms/server.nix"
-    ];
-  };
 
   hardware.enableRedistributableFirmware = true;
   zramSwap.enable = true;

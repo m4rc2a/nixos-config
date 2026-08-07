@@ -4,7 +4,6 @@
     ../modules/locale.nix
     ../modules/time.nix
     ../modules/nix.nix
-    ../modules/home-manager.nix
 
     # admin
     ../modules/networking.nix
