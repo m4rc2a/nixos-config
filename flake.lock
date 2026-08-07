@@ -364,11 +364,11 @@
         "stylix": "stylix"
       },
       "locked": {
-        "lastModified": 1786033418,
-        "narHash": "sha256-77Z++B8djXYg02Pyg/yylGEiWVDKFyEL4dgX4mCx4BU=",
+        "lastModified": 1786106129,
+        "narHash": "sha256-fMK+dD5uU+FbCMN2GTqj5LKw558EXa8GcH/H+XvpyOI=",
         "ref": "refs/heads/main",
-        "rev": "20a0750da506f25b2f641ddf2e9cfe35df602946",
-        "revCount": 37,
+        "rev": "39fd2d43e08cff993b7c89cec8d977e7d9e19148",
+        "revCount": 38,
         "type": "git",
         "url": "ssh://git@codeberg.org/m4rc2a/home-manager"
       },
