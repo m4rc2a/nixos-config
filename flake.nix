@@ -187,7 +187,7 @@
 
       nodes = {
         roo6 = {
-          hostname = "roo6";
+          hostname = "home";
           profiles = {
             system = {
               user = "root";

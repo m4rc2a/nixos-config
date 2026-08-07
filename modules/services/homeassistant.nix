@@ -5,13 +5,15 @@
 }: {
   services.home-assistant = {
     enable = true;
-    openFirewall = true;
+    openFirewall = false;
 
     configWritable = true;
     configDir = "/var/lib/hass";
 
     config = {
       http.server_port = lib.mkDefault 8123;
+      http.trusted_proxies = ["127.0.0.1" "::1"];
+      http.use_x_forwarded_for = true;
       homeassistant = {
         name = config.networking.hostName;
         time_zone = "Europe/Berlin";

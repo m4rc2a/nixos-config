@@ -22,7 +22,7 @@
 
     # Services
     ## web
-    ../modules/services/nginx.nix
+    ../modules/services/caddy.nix
 
     ../modules/services/invidious.nix
     ../modules/services/jellyfin.nix
