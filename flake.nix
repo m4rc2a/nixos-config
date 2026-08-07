@@ -40,12 +40,18 @@
       url = "github:serokell/deploy-rs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nix-topology = {
+      url = "github:oddlama/nix-topology";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ {
     self,
     nixpkgs,
     deploy-rs,
+    nix-topology,
     ...
   }: let
     # Per-system package set with the deploy-rs package from nixpkgs (for the
@@ -57,6 +63,12 @@
 
     deployRsPkg = system: (pkgsFor system).pkgs.deploy-rs;
 
+    # Package set for the nix-topology builder, with its rendering overlay.
+    topologyPkgs = system: import nixpkgs {
+      inherit system;
+      overlays = [nix-topology.overlays.default];
+    };
+
     # Arguments shared by every NixOS configuration (forwarded to home-manager).
     nixosArgs = {
       inherit inputs;
@@ -67,19 +79,28 @@
       roo6 = nixpkgs.lib.nixosSystem {
         system = "aarch64-linux";
         specialArgs = nixosArgs;
-        modules = [./nodes/roo6];
+        modules = [
+          ./nodes/roo6
+          nix-topology.nixosModules.default
+        ];
       };
 
       marc-laptop = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = nixosArgs;
-        modules = [./nodes/marc-laptop];
+        modules = [
+          ./nodes/marc-laptop
+          nix-topology.nixosModules.default
+        ];
       };
 
       marc-desktop = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = nixosArgs;
-        modules = [./nodes/marc-desktop];
+        modules = [
+          ./nodes/marc-desktop
+          nix-topology.nixosModules.default
+        ];
       };
     };
 
@@ -223,8 +244,20 @@
 
     # Validate the deployment definitions on `nix flake check`.
     checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
+
+    # Generate infrastructure/network diagrams from the host configs.
+    topology = builtins.mapAttrs (system: _: import nix-topology {
+      pkgs = topologyPkgs system;
+      modules = [
+        ./topology.nix
+        {nixosConfigurations = self.nixosConfigurations;}
+      ];
+    }) {
+      x86_64-linux = {};
+      aarch64-linux = {};
+    };
   in {
-    inherit nixosConfigurations deploy checks;
+    inherit nixosConfigurations deploy checks topology;
 
     # Build the deploy-rs binary for `nix run .#deploy-rs`
     packages = {
