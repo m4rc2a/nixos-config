@@ -121,6 +121,7 @@
           }
           "${inputs.hm-config}/modules/ssh-zones.nix"
           "${inputs.hm-config}/profiles/core/default.nix"
+          "${inputs.hm-config}/platforms/server.nix"
           hmCommonModule
           hmStylixScheme
           inputs.stylix.homeModules.stylix
@@ -137,6 +138,7 @@
           }
           "${inputs.hm-config}/modules/ssh-zones.nix"
           "${inputs.hm-config}/profiles/core/default.nix"
+          "${inputs.hm-config}/platforms/server.nix"
           hmCommonModule
           hmStylixScheme
           inputs.stylix.homeModules.stylix
@@ -180,7 +182,6 @@
     deploy = {
       # Defaults shared by every node/profile (override priority: profile > node > deploy)
       sshUser = "marc";
-      sudo = "sudo -u";
       interactiveSudo = true;
       autoRollback = true;
       magicRollback = true;
@@ -188,6 +189,8 @@
       nodes = {
         roo6 = {
           hostname = "home";
+          sshUser = "root";
+          interactiveSudo = false;
           profiles = {
             system = {
               user = "root";

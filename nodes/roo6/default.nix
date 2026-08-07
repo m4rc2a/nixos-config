@@ -34,6 +34,11 @@
     initialPassword = "changeme";
   };
 
+  users.users.root.openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKHb/tElkqPSkzQnH2NA+B8M0VaeXyng0x6hfTGtLN7X"
+  ];
+  services.openssh.settings.PermitRootLogin = lib.mkForce "prohibit-password";
+
   boot.loader = {
     systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;
@@ -74,6 +79,7 @@
     imports = [
       "${inputs.hm-config}/modules/ssh-zones.nix"
       "${inputs.hm-config}/profiles/core/default.nix"
+      "${inputs.hm-config}/platforms/server.nix"
     ];
   };
 
@@ -81,6 +87,7 @@
     imports = [
       "${inputs.hm-config}/modules/ssh-zones.nix"
       "${inputs.hm-config}/profiles/core/default.nix"
+      "${inputs.hm-config}/platforms/server.nix"
     ];
   };
 
