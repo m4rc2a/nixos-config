@@ -5,6 +5,7 @@
 }: {
   imports = [
     ../../systems/laptop.nix
+    ../../modules/stylix.nix
     inputs.disko.nixosModules.default
     inputs.home-manager.nixosModules.home-manager
     inputs.sops-nix.nixosModules.sops
@@ -32,7 +33,6 @@
   sops.age.generateKey = true;
 
   home-manager.sharedModules = [
-    inputs.stylix.homeModules.stylix
     inputs.niri.homeModules.niri
     inputs.sops-nix.homeManagerModules.sops
   ];

@@ -5,6 +5,7 @@
 }: {
   imports = [
     ../../systems/server.nix
+    ../../modules/stylix.nix
     inputs.disko.nixosModules.default
     inputs.home-manager.nixosModules.home-manager
     inputs.sops-nix.nixosModules.sops
@@ -14,6 +15,13 @@
   ];
 
   nixpkgs.config.allowUnfree = true;
+
+  # Headless server: only theme fonts/console, not the GTK/GNOME stack.
+  stylix.targets = {
+    gtk.enable = false;
+    "gnome-text-editor".enable = false;
+    gnome.enable = false;
+  };
 
   networking.hostName = "roo6";
 
@@ -61,18 +69,6 @@
   custom.services.ssh-reverse-tunnel.user = "marc";
   custom.services.ssh-reverse-tunnel.sshPort = 20022;
   custom.services.ssh-reverse-tunnel.tunnelPort = 2443;
-
-  home-manager.sharedModules = [
-    inputs.stylix.homeModules.stylix
-    {
-      stylix.targets = {
-        gtk.enable = false;
-        eog.enable = false;
-        gnome-text-editor.enable = false;
-        gnome.enable = false;
-      };
-    }
-  ];
 
   home-manager.users.marc = {
     imports = [

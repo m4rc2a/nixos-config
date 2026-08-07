@@ -6,6 +6,7 @@
 }: {
   imports = [
     ../../systems/gaming-pc.nix
+    ../../modules/stylix.nix
     inputs.disko.nixosModules.default
     inputs.home-manager.nixosModules.home-manager
     inputs.sops-nix.nixosModules.sops
@@ -40,7 +41,6 @@
   };
 
   home-manager.sharedModules = [
-    inputs.stylix.homeModules.stylix
     inputs.niri.homeModules.niri
     inputs.sops-nix.homeManagerModules.sops
   ];

@@ -17,7 +17,7 @@
     };
 
     stylix = {
-      url = "github:nix-community/stylix";
+      url = "github:nix-community/stylix/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -95,6 +95,19 @@
       nixpkgs.config.allowUnfree = true;
     };
 
+    # Standalone HM has no NixOS stylix module to forward the theme, so provide
+    # it explicitly here (mirrors modules/stylix.nix on the NixOS side).
+    # Yields a module definition (takes the system pkgs).
+    hmStylixScheme = {
+      pkgs,
+      ...
+    }: {
+      stylix = {
+        enable = true;
+        base16Scheme = "${pkgs.base16-schemes}/share/themes/ayu-dark.yaml";
+      };
+    };
+
     # Standalone home-manager configurations, extracted so deploy-rs can deploy
     # them independently of the NixOS `home-manager.users` integration.
     hmConfigurations = {
@@ -109,6 +122,7 @@
           "${inputs.hm-config}/modules/ssh-zones.nix"
           "${inputs.hm-config}/profiles/core/default.nix"
           hmCommonModule
+          hmStylixScheme
           inputs.stylix.homeModules.stylix
         ];
       };
@@ -124,6 +138,7 @@
           "${inputs.hm-config}/modules/ssh-zones.nix"
           "${inputs.hm-config}/profiles/core/default.nix"
           hmCommonModule
+          hmStylixScheme
           inputs.stylix.homeModules.stylix
         ];
       };
@@ -141,6 +156,7 @@
           "${inputs.hm-config}/profiles/core/default.nix"
           "${inputs.hm-config}/profiles/desktop/default.nix"
           hmCommonModule
+          hmStylixScheme
           inputs.stylix.homeModules.stylix
           inputs.niri.homeModules.niri
           inputs.sops-nix.homeManagerModules.sops
@@ -153,6 +169,7 @@
         modules = [
           "${inputs.hm-config}/hosts/desktop-pc.nix"
           hmCommonModule
+          hmStylixScheme
           inputs.stylix.homeModules.stylix
           inputs.niri.homeModules.niri
           inputs.sops-nix.homeManagerModules.sops
