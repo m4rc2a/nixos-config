@@ -41,7 +41,7 @@
       luks.devices.crypted = {
         device = "/dev/disk/by-partlabel/disk-main-luks"; # LUKS (3. GPT-Partition)
         allowDiscards = true;
-        # KeyFile (/secret.key) kommt zur Bootzeit via Heads crypttab-Override.
+        keyFile = "/secret.key"; # von Heads (TPM DUK) injizierter Key
         # fallbackToPassword bewusst NICHT setzen: systemd fragt bei Non-DUK-Boot selbst ab.
       };
     };

@@ -84,6 +84,8 @@ Versiegelt einen LUKS-Schlüssel im TPM. Der Schlüssel wird nur freigegeben wen
 - Heads bietet an, stattdessen den Disk Recovery Key einzugeben
 - Das ist der Sicherheitshinweis: untersuche, warum sich die Firmware geändert hat
 
+> **NixOS-seitig:** `boot.initrd.luks.devices.crypted.keyFile = "/secret.key"` (systemd-initrd). Fehlt der Key (kein `/secret.key` injiziert, z. B. DRK-Fallback), setzt `systemd-cryptsetup` `key_file = NULL; continue;` (`cryptsetup.c`, `verb_attach`) und fragt stattdessen **interaktiv nach dem LUKS-Passwort** — kein Boot-Abbruch, kein Freeze.
+
 ### 6. Nach jedem NixOS-Rebuild
 
 Jedes `nixos-rebuild switch` aktualisiert Kernel und Initrd in `/boot/kexec/`. Die Datei-Hashes ändern sich und Heads verweigert den Boot.
