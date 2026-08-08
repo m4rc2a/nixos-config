@@ -71,7 +71,7 @@ Versiegelt einen LUKS-Schlüssel im TPM. Der Schlüssel wird nur freigegeben wen
 2. Beim Setzen des Defaults fragt Heads nach dem Disk Recovery Key (das LUKS-Passwort aus der Installation)
 3. Neue TPM Disk Unlock Key Passphrase vergeben (3 Wörter)
 4. GPG User PIN eingeben zum Signieren
-5. LUKS-Device angeben: `/dev/disk/by-id/ata-TS64GMTS552T2_I769290100-part2` (entspricht der LUKS-Partition in `disk-config.nix`)
+5. LUKS-Device angeben: `/dev/disk/by-partlabel/disk-main-luks` (entspricht der LUKS-Partition in `disk-config.nix`; GPT-Reihenfolge: biosBoot→part1, boot→part2, luks→part3)
 
 **Ablauf beim Normalboot:**
 1. TOTP-Code prüfen

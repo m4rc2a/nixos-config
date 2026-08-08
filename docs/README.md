@@ -19,6 +19,7 @@ Dokumentation für das NixOS-Konfigurations-Setup. Zwei Repos, deklarative Confi
 | [System aktualisieren](update-system.md) | Remote/lokal deployen, Rollback, Flake-Update |
 | [Remote Deploy (deploy-rs)](deploy-rs.md) | Deployment mit deploy-rs: Nodes, Profile, Gruppen |
 | [Remote Deploy](remote-deploy.md) | Sicher deployen von unterwegs, kein Zugriffsverlust |
+| [marc-laptop deployen](deploy-marc-laptop.md) | Deploy/Install des Heads+LUKS-Laptops (deploy-rs / nixos-anywhere) |
 | [Heads BIOS](heads-bios.md) | kexec-Boot, TOTP, TPM, Signierung, Post-Rebuild |
 | [aarch64 / ARM](aarch64.md) | systemd-boot, Cross-Compile, Firmware, UART, RPi5 |
 | [Two-Repo-Workflow](two-repo-workflow.md) | hm-config ändern, neues Modul hinzufügen |

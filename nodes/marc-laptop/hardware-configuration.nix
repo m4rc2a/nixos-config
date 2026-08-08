@@ -35,6 +35,15 @@
       verbose = true;
       availableKernelModules = ["xhci_pci" "ahci" "sd_mod" "sr_mod"];
       kernelModules = ["dm-snapshot" "dm-crypt"];
+
+      # Heads-Integration: LUKS über /etc/crypttab-Override (TPM Disk Unlock Key)
+      systemd.enable = true; # Default in 25.11, hier explizit gemacht
+      luks.devices.crypted = {
+        device = "/dev/disk/by-partlabel/disk-main-luks"; # LUKS (3. GPT-Partition)
+        allowDiscards = true;
+        # KeyFile (/secret.key) kommt zur Bootzeit via Heads crypttab-Override.
+        # fallbackToPassword bewusst NICHT setzen: systemd fragt bei Non-DUK-Boot selbst ab.
+      };
     };
 
     kernelModules = ["tpm-rng"];
