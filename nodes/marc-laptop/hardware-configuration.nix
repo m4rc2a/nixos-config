@@ -29,6 +29,7 @@
       "quiet"
       "splash"
       "udev.log_priority=3"
+      "rd.systemd.debug_shell"
     ];
 
     initrd = {
