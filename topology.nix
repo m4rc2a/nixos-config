@@ -80,10 +80,10 @@ in {
   nodes.roo6.services.ssh-reverse-tunnel = {
     name = "SSH Reverse Tunnel";
     icon = "services.openssh";
-    info = "shelog.stratum0.org:2443 → roo6:22";
+    info = "shelog.stratum0.org:2443 → roo6:22 · shel:8443 → roo6:443";
     details = {
       remote.text = "marc@shelog.stratum0.org";
-      forward.text = "-R 2443 → localhost:22 (roo6 SSH)";
+      forward.text = "-R 2443 → localhost:22 (ssh) · -R 8443 → localhost:443 (caddy web)";
     };
   };
 }

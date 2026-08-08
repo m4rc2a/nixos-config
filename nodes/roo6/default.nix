@@ -24,6 +24,17 @@
 
   networking.hostName = "roo6";
 
+  # Resolve zander.cloud to localhost so Caddy serves via 443 (tunnel-only).
+  # Public DNS has no useful A record (no public endpoint).
+  networking.hosts."127.0.0.1" = [
+    "zander.cloud"
+    "git.zander.cloud"
+    "hass.zander.cloud"
+    "jellyfin.zander.cloud"
+    "invidious.zander.cloud"
+    "radarr.zander.cloud"
+  ];
+
   users.users.marc = {
     isNormalUser = true;
     extraGroups = ["wheel"];
@@ -73,6 +84,12 @@
   custom.services.ssh-reverse-tunnel.user = "marc";
   custom.services.ssh-reverse-tunnel.sshPort = 20022;
   custom.services.ssh-reverse-tunnel.tunnelPort = 2443;
+  custom.services.ssh-reverse-tunnel.extraReverseForwards = [
+    {
+      remotePort = 8443;
+      localPort = 443;
+    }
+  ];
 
   hardware.enableRedistributableFirmware = true;
   zramSwap.enable = true;

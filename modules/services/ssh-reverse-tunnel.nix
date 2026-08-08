@@ -31,6 +31,27 @@ in {
       default = null;
       description = "Remote SSH user for the tunnel connection.";
     };
+    extraReverseForwards = lib.mkOption {
+      type = lib.types.listOf (lib.types.submodule {
+        options = {
+          remotePort = lib.mkOption {
+            type = lib.types.port;
+            description = "Port exposed via reverse tunnel on the remote.";
+          };
+          localHost = lib.mkOption {
+            type = lib.types.str;
+            default = "localhost";
+            description = "Local host to forward to.";
+          };
+          localPort = lib.mkOption {
+            type = lib.types.port;
+            description = "Local port to forward to.";
+          };
+        };
+      });
+      default = [];
+      description = "Additional reverse forwards on the same tunnel (remotePort:localHost:localPort).";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -52,26 +73,35 @@ in {
       wants = ["network-online.target"];
       wantedBy = ["multi-user.target"];
 
+      # Do NOT restart this unit on config switches: it IS the only path to the
+      # machine (deploy-rs connects through it). Restarting kills the deploy.
+      restartIfChanged = lib.mkForce false;
+
       serviceConfig = {
         User = "sshtunnel";
         WorkingDirectory = "/var/lib/sshtunnel";
         Environment = "AUTOSSH_GATETIME=0";
         ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p /var/lib/sshtunnel/.ssh";
-        ExecStart = ''
-          ${pkgs.autossh}/bin/autossh \
-            -M 0 \
-            -N \
-            -R ${toString cfg.tunnelPort}:localhost:${toString cfg.remotePort} \
-            -i /var/lib/sshtunnel/.ssh/id_ed25519 \
-            -p ${toString cfg.sshPort} \
-            ${lib.optionalString (cfg.user != null) "-l ${cfg.user}"} \
-            -o ServerAliveInterval=60 \
-            -o ServerAliveCountMax=3 \
-            -o ExitOnForwardFailure=yes \
-            -o StrictHostKeyChecking=accept-new \
-            -o UserKnownHostsFile=/var/lib/sshtunnel/.ssh/known_hosts \
-            ${cfg.remoteHost}
-        '';
+        ExecStart = lib.concatStringsSep "\n" ([
+            "${pkgs.autossh}/bin/autossh \\"
+            "  -M 0 \\"
+            "  -N \\"
+            "  -R ${toString cfg.tunnelPort}:localhost:${toString cfg.remotePort} \\"
+          ]
+          ++ (map (f:
+            "  -R ${toString f.remotePort}:${f.localHost}:${toString f.localPort} \\")
+            cfg.extraReverseForwards)
+          ++ [
+            "  -i /var/lib/sshtunnel/.ssh/id_ed25519 \\"
+            "  -p ${toString cfg.sshPort} \\"
+            "${lib.optionalString (cfg.user != null) "  -l ${cfg.user} \\"}"
+            "  -o ServerAliveInterval=60 \\"
+            "  -o ServerAliveCountMax=3 \\"
+            "  -o ExitOnForwardFailure=yes \\"
+            "  -o StrictHostKeyChecking=accept-new \\"
+            "  -o UserKnownHostsFile=/var/lib/sshtunnel/.ssh/known_hosts \\"
+            "  ${cfg.remoteHost}"
+          ]);
         Restart = "always";
         RestartSec = "10s";
       };

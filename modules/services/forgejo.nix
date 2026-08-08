@@ -12,8 +12,8 @@
     };
 
     settings.server = {
-      DOMAIN = "git.roo6.lan";
-      ROOT_URL = "https://git.roo6.lan/";
+      DOMAIN = "git.zander.cloud";
+      ROOT_URL = "https://git.zander.cloud/";
       HTTP_ADDR = "127.0.0.1";
       HTTP_PORT = 3000;
       SSH_PORT = 2222;
